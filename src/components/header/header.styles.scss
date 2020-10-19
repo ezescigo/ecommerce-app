@@ -8,7 +8,9 @@
     .logo-container {
       height: 100%;
       width: 70px;
-      padding: 25px;
+      padding: 10px;
+      align-items: center;
+      justify-content: center;
     }
   
     .options {
@@ -21,6 +23,7 @@
       .option {
         padding: 10px 15px;
         cursor: pointer;
+        font-size: 18px;
       }
     }
   }
