@@ -19,6 +19,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   // Get user snapShot
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+
   const snapShot = await userRef.get();
   
   // Check if User exists in our db, if not Create User Document
@@ -41,14 +42,44 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 }
 
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
 
-  export const auth = firebase.auth();
-  export const firestore = firebase.firestore();
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  
+  const batch = firestore.batch();
+  objectsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
 
-  // Google Authentication Utility
-  const provider = new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({ prompt: 'select_account' }); // Triggers Google Pop Up whenever we use GoogleAuthProvider for authentication and sign in.
-  export const signInWithGoogle = () => auth.signInWithPopup(provider); // To use Google's Sign In Pop Up.
+  return await batch.commit();
+};
 
-  export default firebase;
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  });
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  } , {});
+};
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+// Google Authentication Utility
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' }); // Triggers Google Pop Up whenever we use GoogleAuthProvider for authentication and sign in.
+export const signInWithGoogle = () => auth.signInWithPopup(provider); // To use Google's Sign In Pop Up.
+
+export default firebase;

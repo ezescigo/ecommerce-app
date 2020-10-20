@@ -24,18 +24,18 @@ class App extends React.Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
         // check if signed in
       if (userAuth) {
-          // Get back the userRef obj from our createUserProfileDocument method passing userAuth. If it exists in our db, will bring the data, if not will create a new one.
-          const userRef = await createUserProfileDocument(userAuth);
-          // subscribe/listen to any changes in userRef data
-          userRef.onSnapshot(snapShot => {
-              setCurrentUser({ 
-                id: snapShot.id,
-                ...snapShot.data()
-              });
+        // Get back the userRef obj from our createUserProfileDocument method passing userAuth. If it exists in our db, will bring the data, if not will create a new one.
+        const userRef = await createUserProfileDocument(userAuth);
+        // subscribe/listen to any changes in userRef data
+        userRef.onSnapshot(snapShot => {
+          setCurrentUser({ 
+            id: snapShot.id,
+            ...snapShot.data()
           });
+        });
       } else {
-          setCurrentUser(userAuth);
-      }
+        setCurrentUser(userAuth);
+      };
     });
   }
 
