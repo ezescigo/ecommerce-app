@@ -1,5 +1,3 @@
-import { clearItemFromCart } from "./cart.actions";
-
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   // Search first item found in our array based on condition: existing id item.
   const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToAdd.id);

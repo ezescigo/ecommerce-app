@@ -26,7 +26,30 @@ export const OptionsContainer = styled.div`
 `;
 
 export const OptionLink = styled(Link)`
-  padding: 10px 15px;
+  padding: 5px 0px;
+  margin: auto 15px;
   cursor: pointer;
   font-size: 18px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    border-bottom: 1px solid grey;
+    transition: all 0.2s linear;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:hover::after {
+    left: 0;
+    width: 100%;
+  }
 `;

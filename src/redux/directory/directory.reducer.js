@@ -1,36 +1,36 @@
 const INITIAL_STATE = {
   sections: [
     {
-      title: "hats",
-      imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
+      title: "wristlets",
+      imageUrl: "https://drive.google.com/uc?export=view&id=1MgJTJUAQyk6221k8R-zsC-yzDo-M2r4N",
       id: 1,
-      linkUrl: "shop/hats",
+      linkUrl: "shop/wristlets",
+    },
+    {
+      title: "belts",
+      imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
+      id: 2,
+      linkUrl: "shop/belts",
+    },
+    {
+      title: "wallets",
+      imageUrl: "https://drive.google.com/uc?export=view&id=1EXX4Jk-Vu0k2bJz4IK36weTP7t7Nv_Vl",
+      id: 3,
+      linkUrl: "shop/wallets",
     },
     {
       title: "jackets",
-      imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
-      id: 2,
+      imageUrl: "https://drive.google.com/uc?export=view&id=1V2Zsfrpwx66B-wCDRYRlI2q4X7fZFm9y",
+      size: "large",
+      id: 4,
       linkUrl: "shop/jackets",
     },
     {
-      title: "sneakers",
-      imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
-      id: 3,
-      linkUrl: "shop/sneakers",
-    },
-    {
-      title: "women",
-      imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
-      size: "large",
-      id: 4,
-      linkUrl: "shop/women",
-    },
-    {
-      title: "men",
-      imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
+      title: "dresses",
+      imageUrl: "https://drive.google.com/uc?export=view&id=1A1EYXPBUIAEPWzx-_gNUv8z91Z1YlbQ8",
       size: "large",
       id: 5,
-      linkUrl: "shop/men",
+      linkUrl: "shop/dresses",
     }
   ]
 };
