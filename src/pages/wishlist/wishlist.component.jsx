@@ -2,18 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
-import { selectWishlistItemsForPreview } from '../../redux/wishlist/wishlist.selectors';
-import { selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
-
+import { selectWishlistItems } from '../../redux/wishlist/wishlist.selectors';
+import { clearWishlist } from '../../redux/wishlist/wishlist.actions';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
-import collectionsOverviewComponent from '../../components/collections-overview/collections-overview.component';
 
-const WishlistPage = ({ wishlist, collections }) => {
+const WishlistPage = ({ wishlist, dispatch }) => {
 
   return (
     <div className='wishlist-page'>
-      {console.log(wishlist, collections)}
+      <button onClick={() => dispatch(clearWishlist())}>Clear Wishlist</button>
+      {console.log(wishlist)}
       {wishlist
         .map(item => (
           <CollectionItem key={item.id} item={item} />
@@ -23,16 +22,12 @@ const WishlistPage = ({ wishlist, collections }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  wishlist: selectWishlistItemsForPreview,
-  collections: selectCollectionsForPreview
+  wishlist: selectWishlistItems,
 });
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  null
 )(WishlistPage);
 
 
-// const mapDispatchToProps = dispatch => ({
-//   fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
-// });

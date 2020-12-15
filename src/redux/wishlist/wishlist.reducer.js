@@ -1,5 +1,5 @@
 import WishlistActionTypes from './wishlist.types';
-import { addItemToWishlist } from './wishlist.utils';
+import { toggleItemToWishlist } from './wishlist.utils';
 // import { removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
@@ -8,10 +8,17 @@ const INITIAL_STATE = {
 
 const wishlistReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case WishlistActionTypes.ADD_ITEM_TO_WISHLIST:
+    case WishlistActionTypes.TOGGLE_ITEM_TO_WISHLIST:
       return {
         ...state,
-        wishlistItems: addItemToWishlist(state.wishlistItems, action.payload)
+        wishlistItems: toggleItemToWishlist(state.wishlistItems, action.payload),
+        // guardar en wishlist la id del item
+        // cuando se renderea el componente, chequear con la lista de favs si se renderea el heart full or empty.
+      };
+    case WishlistActionTypes.CLEAR_WISHLIST:
+      return {
+        ...state,
+        wishlistItems: []
       };
     // case WishlistActionTypes.REMOVE_ITEM:
     //   return {

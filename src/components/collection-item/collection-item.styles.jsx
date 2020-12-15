@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import CustomButton from '../custom-button/custom-button.component';
 
 export const CollectionItemContainer = styled.div`
-  width: 19vw;
+  width: 330px;
   display: flex;
   flex-direction: column;
   height: 350px;
   align-items: center;
   position: relative;
+
   &:hover {
     .image {
       opacity: 0.8;
@@ -17,14 +18,36 @@ export const CollectionItemContainer = styled.div`
       opacity: 0.85;
       display: flex;
     }
+    .fav-icon {
+      display: flex;
+    }
   }
+`;
+
+export const FavIconContainer = styled.div`
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+
+  .fav-icon {
+    width: 24px;
+    height: 24px;
+    display: none;  // none to hide
+  }
+
 `;
 
 export const AddButton = styled(CustomButton)`
   width: 80%;
   opacity: 0.7;
   position: absolute;
-  top: 255px;
+  top: 235px;
   display: none;
 `;
 

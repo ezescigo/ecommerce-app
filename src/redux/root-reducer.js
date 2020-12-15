@@ -11,7 +11,7 @@ import wishlistReducer from './wishlist/wishlist.reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['cart']
+  whitelist: ['cart', 'wishlist']
 };
 
 const rootReducer = combineReducers({

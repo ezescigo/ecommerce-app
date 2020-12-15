@@ -1,16 +1,11 @@
-export const addItemToWishlist = (wishlistItems, wishlistItemToAdd) => {
+export const toggleItemToWishlist = (wishlistItemsIds, wishlistItemTarget) => {
   // Search first item found in our array based on condition: existing id item.
-  const existingWishlistItem = wishlistItems.find(wishlistItem => wishlistItem.id === wishlistItemToAdd.id);
-
+  const existingIdInWishlist = wishlistItemsIds.find(wishlistItemId => wishlistItemId.id === wishlistItemTarget.id);
   // If the item already existis on the array: Return new array with each cartItem and add quantity on the new cartItem
-  if (existingWishlistItem) {
-    return wishlistItems.map(item => 
-      item.id === wishlistItemToAdd.id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    )
-  }
+  if (existingIdInWishlist) {
+    return wishlistItemsIds.filter(wishlistItemsId => 
+      wishlistItemsId.id !== wishlistItemTarget.id)
+  };
 
-  // If it's a new item, return array adding the item with quantity 1.
-  return [...wishlistItems, { ...wishlistItemToAdd, quantity: 1 }];
+  return [ ...wishlistItemsIds, wishlistItemTarget ];
 };

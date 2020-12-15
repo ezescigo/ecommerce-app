@@ -14,7 +14,7 @@ export const fetchCollectionsSuccess = collectionsMap => ({
 export const fetchCollectionsFailure = errorMessage => ({
   type: CollectionsActionTypes.FETCH_COLLECTIONS_FAILURE,
   payload: errorMessage
-})
+});
 
 // thanks to redux thunk:
 export const fetchCollectionsStartAsync = () => {
