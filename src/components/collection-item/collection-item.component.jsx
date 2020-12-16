@@ -1,22 +1,17 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import { addItem } from '../../redux/cart/cart.actions';
 import { toggleFavWishlist } from '../../redux/wishlist/wishlist.actions';
-import { selectWishlistItems } from '../../redux/wishlist/wishlist.selectors';
 
-import { ReactComponent as FavoriteIcon } from '../../assets/favorite.svg';
+import FavIcon from '../fav-icon/fav-icon.component';
 
-import { CollectionItemContainer, CollectionFooterContainer, FavIconContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
+import { CollectionItemContainer, CollectionFooterContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
 
 const CollectionItem = ({ item, addItem, toggleFav, fav }) => {
-  const { id, name, price, imageUrl } = item;
+  const { name, price, imageUrl } = item;
   const firstUpdate = useRef(true);
-
-  const [isFav, setFav] = useState({
-      isFav: fav
-  });
+  const [isFav, setFav] = useState(fav);
 
   useLayoutEffect(() => {
     if (firstUpdate.current) {
@@ -26,25 +21,18 @@ const CollectionItem = ({ item, addItem, toggleFav, fav }) => {
     toggleFav(item);
     }, [isFav]);
 
+  console.log('fav', fav);
+  console.log('isFav', isFav);
   console.log('load item');
 
   return (
-  <CollectionItemContainer>
+  <CollectionItemContainer isFav={isFav}>
     <BackgroundImage className='image' imageUrl={imageUrl} />
     <CollectionFooterContainer>
       <NameContainer>{name}</NameContainer>
       <PriceContainer>${price}</PriceContainer>
     </CollectionFooterContainer>
-    
-    {isFav
-      ? (
-        <FavIconContainer onClick={() => setFav(!isFav)}>
-          <FavoriteIcon className='fav-icon' />
-        </FavIconContainer>
-      ) : (
-        <button onClick={() => setFav(!isFav)}>Es Fav</button>
-      )
-    }
+    <FavIcon className='fav-icon' isFav={isFav} onClick={() => setFav(!isFav) } />
     <AddButton inverted onClick={() => addItem(item)}>Add to cart</AddButton>
   </CollectionItemContainer>
 )};
@@ -58,3 +46,8 @@ export default connect(
   null,
   mapDispatchToProps
 )(CollectionItem);
+
+
+// <FavIconContainer isFav onClick={() => setFav(!isFav)}>
+// <FavIconOn className='fav-icon' />
+// </FavIconContainer>

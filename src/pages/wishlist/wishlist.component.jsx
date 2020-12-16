@@ -12,7 +12,6 @@ const WishlistPage = ({ wishlist, dispatch }) => {
   return (
     <div className='wishlist-page'>
       <button onClick={() => dispatch(clearWishlist())}>Clear Wishlist</button>
-      {console.log(wishlist)}
       {wishlist
         .map(item => (
           <CollectionItem key={item.id} item={item} />

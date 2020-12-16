@@ -11,7 +11,6 @@ import './collection.styles.scss';
 
 const CollectionPage = ({ collection, wishlist }) => {
   const { title, items } = collection;
-  console.log(wishlist);
 
   return (
     <div className='collection-page'>
@@ -19,8 +18,8 @@ const CollectionPage = ({ collection, wishlist }) => {
       <div className='items'>
         {items.map(item => {
           return wishlist.find(wishlistItem => wishlistItem.id === item.id)
-          ? <CollectionItem key={item.id} item={item} fav={true} />
-          : <CollectionItem key={item.id} item={item} fav={false} />        
+          ? <CollectionItem key={item.id} item={item} fav />
+          : <CollectionItem key={item.id} item={item} />        
           }
         )}
       </div>

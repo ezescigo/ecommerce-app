@@ -1,6 +1,16 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 import CustomButton from '../custom-button/custom-button.component';
+
+const favIconOff = css`
+  display: none;
+`;
+
+const getFavStyles = (isFav) => {
+  if (!isFav) {
+    return favIconOff;
+  }
+}
 
 export const CollectionItemContainer = styled.div`
   width: 330px;
@@ -9,6 +19,11 @@ export const CollectionItemContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+
+  .fav-icon {
+    display: flex;
+    /* ${getFavStyles()}; */
+  }
 
   &:hover {
     .image {
@@ -24,25 +39,6 @@ export const CollectionItemContainer = styled.div`
   }
 `;
 
-export const FavIconContainer = styled.div`
-  width: 41px;
-  height: 41px;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 5px;
-  right: 5px;
-  cursor: pointer;
-
-  .fav-icon {
-    width: 24px;
-    height: 24px;
-    display: none;  // none to hide
-  }
-
-`;
-
 export const AddButton = styled(CustomButton)`
   width: 80%;
   opacity: 0.7;
@@ -53,7 +49,7 @@ export const AddButton = styled(CustomButton)`
 
 export const BackgroundImage = styled.div`
   width: 100%;
-  height: 95%;
+;  height: 95%;
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
