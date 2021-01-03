@@ -5,6 +5,8 @@ import { selectCollection } from '../../redux/collections/collections.selectors'
 import { selectWishlistItems } from '../../redux/wishlist/wishlist.selectors';
 import { withRouter } from 'react-router-dom';
 
+import "react-toastify/dist/ReactToastify.css";
+
 import CollectionItem from '../collection-item/collection-item.component';
 
 import './collection.styles.scss';

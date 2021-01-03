@@ -6,3 +6,8 @@ export const selectWishlistItems = createSelector(
   [selectWishlist],
   (wishlist) => wishlist.wishlistItems
 );
+
+export const selectAllFavItems = createSelector(
+  [selectWishlist],
+  (wishlist) => [...wishlist.wishlistItems, ...wishlist.toAdd]
+);

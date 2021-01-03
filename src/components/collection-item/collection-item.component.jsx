@@ -1,29 +1,43 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { addItem } from '../../redux/cart/cart.actions';
-import { toggleFavWishlist } from '../../redux/wishlist/wishlist.actions';
+import { toggleWishlistItem, undo, updateWishlist } from '../../redux/wishlist/wishlist.actions';
 
 import FavIcon from '../fav-icon/fav-icon.component';
+import Undo from '../undo-toast/undo-toast.component';
 
 import { CollectionItemContainer, CollectionFooterContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
 
-const CollectionItem = ({ item, addItem, toggleFav, fav }) => {
+const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
   const { name, price, imageUrl } = item;
+  const [isFav, setFav] = useState();
   const firstUpdate = useRef(true);
-  const [isFav, setFav] = useState(fav);
-
+  
   useLayoutEffect(() => {
     if (firstUpdate.current) {
+      setFav(fav);
       firstUpdate.current = false;
-      return
-    };
-    toggleFav(item);
-    }, [isFav]);
+    }
+  }, []);
 
-  console.log('fav', fav);
-  console.log('isFav', isFav);
-  console.log('load item');
+  console.log('inicial', isFav);
+
+  const undo = () => {
+    setFav(currentIsFav => !currentIsFav);
+  };
+
+  const handleOnClick = () => {
+    setFav(currentIsFav => !currentIsFav);
+    toggleFav(item);
+    const toastId = toast(
+      <Undo message={'asd'} item={item} onUndo={() => undo()} />,
+      {onClose: () => updateWishlist()}
+    );
+  };
+
+  console.log('return', isFav);
 
   return (
   <CollectionItemContainer isFav={isFav}>
@@ -32,22 +46,18 @@ const CollectionItem = ({ item, addItem, toggleFav, fav }) => {
       <NameContainer>{name}</NameContainer>
       <PriceContainer>${price}</PriceContainer>
     </CollectionFooterContainer>
-    <FavIcon className='fav-icon' isFav={isFav} onClick={() => setFav(!isFav) } />
+    <FavIcon className='fav-icon' isFav={isFav} onClick={handleOnClick} />
     <AddButton inverted onClick={() => addItem(item)}>Add to cart</AddButton>
   </CollectionItemContainer>
 )};
 
 const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item)),
-  toggleFav: item => dispatch(toggleFavWishlist(item)),
+  toggleFav: item => dispatch(toggleWishlistItem(item)),
+  updateWishlist: () => dispatch(updateWishlist()),
 });
 
 export default connect(
   null,
   mapDispatchToProps
 )(CollectionItem);
-
-
-// <FavIconContainer isFav onClick={() => setFav(!isFav)}>
-// <FavIconOn className='fav-icon' />
-// </FavIconContainer>

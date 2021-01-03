@@ -1,35 +1,42 @@
 import WishlistActionTypes from './wishlist.types';
-import { toggleItemToWishlist } from './wishlist.utils';
-// import { removeItemFromCart } from './cart.utils';
+import { updateWishlist } from './wishlist.utils';
 
 const INITIAL_STATE = {
-  wishlistItems: []
+  wishlistItems: [],
+  toAdd: [],
+  toRemove: []
 };
 
 const wishlistReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case WishlistActionTypes.TOGGLE_ITEM_TO_WISHLIST:
+    case WishlistActionTypes.QUEUE_FOR_REMOVAL:
       return {
         ...state,
-        wishlistItems: toggleItemToWishlist(state.wishlistItems, action.payload),
-        // guardar en wishlist la id del item
-        // cuando se renderea el componente, chequear con la lista de favs si se renderea el heart full or empty.
+        toRemove: [...state.toRemove, action.payload]
       };
+    case WishlistActionTypes.QUEUE_FOR_ADD:
+      return {
+        ...state,
+        toAdd: [...state.toAdd, action.payload]
+      };
+    case WishlistActionTypes.UNDO:
+      return {
+        ...state,
+        toAdd: state.toAdd.filter(item => item.id !== action.payload.id),
+        toRemove: state.toRemove.filter(item => item.id !== action.payload.id),
+      };
+    case WishlistActionTypes.UPDATE_WISHLIST:
+      return {
+        ...state,
+        wishlistItems: updateWishlist(state.wishlistItems, state.toRemove, state.toAdd),
+        toRemove: [],
+        toAdd: []
+      }
     case WishlistActionTypes.CLEAR_WISHLIST:
       return {
         ...state,
         wishlistItems: []
       };
-    // case WishlistActionTypes.REMOVE_ITEM:
-    //   return {
-    //     ...state,
-    //     cartItems: removeItemFromCart(state.cartItems, action.payload)
-    //   };
-    // case WishlistActionTypes.CLEAR_ITEM_FROM_CART:
-    //   return {
-    //     ...state,
-    //     cartItems: state.cartItems.filter(cartItem => cartItem.id !== action.payload.id )
-    //   };
     default:
       return state;
   }

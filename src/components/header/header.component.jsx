@@ -13,8 +13,11 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './header.styles';
 
-const Header = ( { currentUser, hidden } ) => (
+import { clearWishlist } from '../../redux/wishlist/wishlist.actions';
+
+const Header = ( { currentUser, hidden, dispatch } ) => (
     <HeaderContainer>
+      <button onClick={() => dispatch(clearWishlist())}>Clear Wishlist</button>
         <LogoContainer to="/">
             <Logo className='logo' />
         </LogoContainer>

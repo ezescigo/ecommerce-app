@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import CollectionItem from '../collection-item/collection-item.component.jsx';
 import { selectWishlistItems } from '../../redux/wishlist/wishlist.selectors';
+
+import CollectionItem from '../collection-item/collection-item.component.jsx';
 
 import { Slider } from '@lifarl/react-scroll-snap-slider';
 
@@ -31,11 +32,12 @@ const CollectionPreview = ({ title, items, wishlist }) => (
         }
       </Slider>
     </div>
+    
   </div>
 );
 
 const mapStateToProps = createStructuredSelector({
-  wishlist: selectWishlistItems
+  wishlist: selectWishlistItems,
 })
 
-export default connect(mapStateToProps)(CollectionPreview);
+export default connect(mapStateToProps, null)(CollectionPreview);

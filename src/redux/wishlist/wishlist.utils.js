@@ -1,11 +1,6 @@
-export const toggleItemToWishlist = (wishlistItemsIds, wishlistItemTarget) => {
-  // Search first item found in our array based on condition: existing id item.
-  const existingIdInWishlist = wishlistItemsIds.find(wishlistItemId => wishlistItemId.id === wishlistItemTarget.id);
-  // If the item already existis on the array: Return new array with each cartItem and add quantity on the new cartItem
-  if (existingIdInWishlist) {
-    return wishlistItemsIds.filter(wishlistItemsId => 
-      wishlistItemsId.id !== wishlistItemTarget.id)
-  };
-
-  return [ ...wishlistItemsIds, wishlistItemTarget ];
+export const updateWishlist = (wishlistItems, itemsToRemove, itemsToAdd) => {
+  // Adding items pending to Add
+  let updatedList = [...wishlistItems, ...itemsToAdd];
+  // Removing items pending to Remove
+  return updatedList.filter(item => !(itemsToRemove.some(itemToRemove => itemToRemove.id === item.id)));
 };

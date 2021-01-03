@@ -11,6 +11,7 @@ import ShopPage from './pages/shop/shop.component';
 import WishlistPage from './pages/wishlist/wishlist.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckOutPage from './pages/checkout/checkout.component';
+import { ToastContainer } from "react-toastify";
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -48,6 +49,7 @@ class App extends React.Component {
     return(
       <div>
         <Header />
+        <ToastContainer autoClose={3000} />
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
