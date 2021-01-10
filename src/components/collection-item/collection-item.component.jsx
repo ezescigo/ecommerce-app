@@ -49,7 +49,7 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
 
   return (
   <CollectionItemContainer isFav={isFav} imageUrl={imageUrl} imageUrlAlt={imageUrl2}>
-    <BackgroundImage className='image'  />
+    <BackgroundImage className='image' />
     <CollectionFooterContainer>
       <NameContainer>{name}</NameContainer>
       <PriceContainer>${price}</PriceContainer>

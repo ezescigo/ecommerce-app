@@ -24,15 +24,14 @@ export const CollectionItemContainer = styled.div`
 
   &:hover {
     .image {
-      background-image: ${({ imageUrlAlt }) => `url(${imageUrlAlt})`};
-    }
+      background-image: ${props => props.imageUrlAlt ? `url(${props.imageUrlAlt})` : `url(${props.imageUrl})`}
+      }}
     button {
       display: flex;
     }
     .fav-icon {
       display: flex;
     }
-  }
 `;
 
 export const AddButton = styled(CustomButton)`
