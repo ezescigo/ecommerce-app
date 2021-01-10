@@ -11,42 +11,50 @@ import Undo from '../undo-toast/undo-toast.component';
 import { CollectionItemContainer, CollectionFooterContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
 
 const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
-  const { name, price, imageUrl } = item;
+  const { name, price, imageUrl, imageUrl2 } = item;
   const [isFav, setFav] = useState();
+  const [isDisabled, setDisabled] = useState();
   const firstUpdate = useRef(true);
+
+  console.log(isDisabled);
   
   useLayoutEffect(() => {
     if (firstUpdate.current) {
       setFav(fav);
+      setDisabled(false);
       firstUpdate.current = false;
     }
   }, []);
-
-  console.log('inicial', isFav);
 
   const undo = () => {
     setFav(currentIsFav => !currentIsFav);
   };
 
   const handleOnClick = () => {
-    setFav(currentIsFav => !currentIsFav);
-    toggleFav(item);
-    const toastId = toast(
-      <Undo message={'asd'} item={item} onUndo={() => undo()} />,
-      {onClose: () => updateWishlist()}
-    );
+    if (isDisabled === true) {
+      return ;
+    } else {
+      setDisabled(true);
+      setFav(currentIsFav => !currentIsFav);
+      toggleFav(item);
+      const toastId = toast(
+        <Undo message={'asd'} item={item} onUndo={() => undo()} />,
+        {onClose: () => {
+          updateWishlist();
+          setDisabled(false)}
+        }
+      );
+    }
   };
 
-  console.log('return', isFav);
-
   return (
-  <CollectionItemContainer isFav={isFav}>
-    <BackgroundImage className='image' imageUrl={imageUrl} />
+  <CollectionItemContainer isFav={isFav} imageUrl={imageUrl} imageUrlAlt={imageUrl2}>
+    <BackgroundImage className='image'  />
     <CollectionFooterContainer>
       <NameContainer>{name}</NameContainer>
       <PriceContainer>${price}</PriceContainer>
     </CollectionFooterContainer>
-    <FavIcon className='fav-icon' isFav={isFav} onClick={handleOnClick} />
+    <FavIcon className='fav-icon' isFav={isFav} onClick={handleOnClick} disabled={isDisabled}/>
     <AddButton inverted onClick={() => addItem(item)}>Add to cart</AddButton>
   </CollectionItemContainer>
 )};

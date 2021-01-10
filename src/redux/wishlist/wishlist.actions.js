@@ -32,10 +32,6 @@ export const toggleWishlistItem = item => {
   return (dispatch, getState) => {
     const wishlist = getState().wishlist.wishlistItems;
 
-    console.log('wishlist', wishlist);
-    console.log('length', wishlist.length);
-    // const test = wishlist.find(wishlistItem => wishlistItem.id === item.id)
-      // console.log('test', test);
     if (wishlist.length > 0) {
       
       if (wishlist.find(wishlistItem => wishlistItem.id === item.id)) {

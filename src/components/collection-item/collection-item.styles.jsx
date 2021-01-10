@@ -2,14 +2,8 @@ import styled, {css} from 'styled-components';
 
 import CustomButton from '../custom-button/custom-button.component';
 
-const favIconOff = css`
-  display: none;
-`;
-
-const getFavStyles = (isFav) => {
-  if (!isFav) {
-    return favIconOff;
-  }
+const handleHover = () => {
+  let isHovered = true;
 }
 
 export const CollectionItemContainer = styled.div`
@@ -19,18 +13,20 @@ export const CollectionItemContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  transition: 0.5s ease-in-out;
 
   .fav-icon {
     display: flex;
-    /* ${getFavStyles()}; */
+  }
+  .image {
+      background-image: ${({ imageUrl }) => `url(${imageUrl})`};
   }
 
   &:hover {
     .image {
-      opacity: 0.8;
+      background-image: ${({ imageUrlAlt }) => `url(${imageUrlAlt})`};
     }
     button {
-      opacity: 0.85;
       display: flex;
     }
     .fav-icon {
@@ -53,7 +49,12 @@ export const BackgroundImage = styled.div`
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
-  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+  
+  transition: 0.5s ease;
+
+  &:hover {
+    
+  }
 `;
 
 export const CollectionFooterContainer = styled.div`

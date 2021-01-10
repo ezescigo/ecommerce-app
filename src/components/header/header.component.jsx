@@ -13,33 +13,30 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './header.styles';
 
-import { clearWishlist } from '../../redux/wishlist/wishlist.actions';
-
 const Header = ( { currentUser, hidden, dispatch } ) => (
     <HeaderContainer>
-      <button onClick={() => dispatch(clearWishlist())}>Clear Wishlist</button>
-        <LogoContainer to="/">
-            <Logo className='logo' />
-        </LogoContainer>
-        <OptionsContainer>
-          <OptionLink to='/shop'>
-              SHOP
+      <LogoContainer to="/">
+          <Logo className='logo' />
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to='/shop'>
+            SHOP
+        </OptionLink>
+        <OptionLink to='/wishlist'>
+            WISHLIST
+        </OptionLink>
+        { currentUser ? 
+          (<OptionLink as='div' onClick={() => auth.signOut()}>
+              SIGN OUT
           </OptionLink>
-          <OptionLink to='/wishlist'>
-              WISHLIST
+          ) : (
+          <OptionLink to='/signin'>
+              SIGN IN
           </OptionLink>
-          { currentUser ? 
-            (<OptionLink as='div' onClick={() => auth.signOut()}>
-                SIGN OUT
-            </OptionLink>
-            ) : (
-            <OptionLink to='/signin'>
-                SIGN IN
-            </OptionLink>
-            )}
-          <CartIcon />
-        </OptionsContainer>
-        { hidden ? null : <CartDropdown /> }
+          )}
+        <CartIcon />
+      </OptionsContainer>
+      { hidden ? null : <CartDropdown /> }
     </HeaderContainer>
 );
 
