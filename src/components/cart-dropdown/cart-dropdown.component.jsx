@@ -10,23 +10,10 @@ import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
 
+
 import './cart-dropdown.styles.scss';
 
 const CartDropdown = ({ cartItems, history, dispatch, hidden }) => {
-
-  const ref = useRef(null);
-  const handleClickOutside = (event) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      dispatch(toggleCartHidden);
-    }
-};
-
-useEffect(() => {
-    document.addEventListener('click', handleClickOutside, true);
-    return () => {
-        document.removeEventListener('click', handleClickOutside, true);
-    };
-});
 
   return (
     <div className='cart-dropdown'>
@@ -49,9 +36,6 @@ useEffect(() => {
     </div>
   )
 };
-
-
-
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,

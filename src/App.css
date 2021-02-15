@@ -1,6 +1,7 @@
 body {
-  font-family: 'Bebas Neue';
-  padding: 20px 40px;
+  font-family: 'Lato', sans-serif;
+  padding: 0;
+  background-color: rgb(243, 241, 239);
 }
 
 /* To avoid purple/marked <Link> */

@@ -15,8 +15,6 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
   const [isFav, setFav] = useState();
   const [isDisabled, setDisabled] = useState();
   const firstUpdate = useRef(true);
-
-  console.log(isDisabled);
   
   useLayoutEffect(() => {
     if (firstUpdate.current) {
@@ -38,7 +36,7 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
       setFav(currentIsFav => !currentIsFav);
       toggleFav(item);
       const toastId = toast(
-        <Undo message={'asd'} item={item} onUndo={() => undo()} />,
+        <Undo message={isFav} item={item} onUndo={() => undo()} />,
         {onClose: () => {
           updateWishlist();
           setDisabled(false)}
