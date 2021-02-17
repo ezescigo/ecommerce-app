@@ -1,0 +1,18 @@
+.slide-menu-item {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 50px;
+  align-items: center;
+  justify-content: left;
+  cursor: pointer;
+  transition: all 300ms ease;
+  font-size: 20px;
+ 
+  &:hover {
+    background-color: rgb(215, 215, 226);
+    background: linear-gradient(to right, #e4e0e0  0%,#ffffff  60%); 
+  }
+}
+

@@ -3,31 +3,24 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
+import { selectIsCollectionFetching } from '../../redux/collections/collections.selectors';
+
 import { auth } from '../../firebase/firebase.utils';
 
-import useHeight from '../header/useHeight.tsx';
-import { useSpring, animated as a, config } from 'react-spring';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { HeaderContainer, OptionsContainer, OptionLink, NavTrigger, NavIcon } from './header-mobile.styles.jsx';
+import { HeaderContainer, SlideNavBar, OptionLink, NavTrigger, NavIcon } from './header-mobile.styles.jsx';
 import { LogoContainer } from '../header/header.styles';
 
-const HeaderMobile = ({ hidden, currentUser }) => {
+import NavItem from '../nav-item/nav-item.component';
+import SlideMenu from '../slide-menu/slide-menu.component';
+import { CSSTransition } from 'react-transition-group';
 
-  const [heightRef, height] = useHeight();
-  const slideInStyles = useSpring({
-    config: { ...config.stiff },
-    from: { opacity: 0, height: 0 },
-    to: {
-      opacity: hidden ? 0 : 1,
-      height: hidden ? 0 : height
-    }
-  });
-
+const HeaderMobile = ({ hidden, currentUser, collections, isLoading }) => {
   const [state, setState] = useState({
     drawerOpen: false,
-    right: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -46,43 +39,44 @@ const HeaderMobile = ({ hidden, currentUser }) => {
       <LogoContainer>
         <Logo />
       </LogoContainer>
-
-        <OptionsContainer open={state.drawerOpen} onClick={toggleDrawer('drawerOpen', false)} onClose={toggleDrawer('drawerOpen', false)}>
-          <OptionLink to='/shop'>
+      <OptionLink to='/shop'>
               Shop
-          </OptionLink>
-          <OptionLink to='/wishlist'>
-              Wishlist
-          </OptionLink>
-          { currentUser ? 
-            (<OptionLink as='div' onClick={() => auth.signOut()}>
-                Sign Out
-            </OptionLink>
-            ) : (
-            <OptionLink to='/signin'>
-                Sign In
-            </OptionLink>
-            )}
-        </OptionsContainer>
+      </OptionLink>
+      <OptionLink to='/wishlist'>
+          Wishlist
+      </OptionLink>
+      { currentUser ? 
+        (<OptionLink as='div' onClick={() => auth.signOut()}>
+            Sign Out
+        </OptionLink>
+        ) : (
+        <OptionLink to='/signin'>
+            Sign In
+        </OptionLink>
+        )}
+
+        <SlideNavBar open={state.drawerOpen} onClose={toggleDrawer('drawerOpen', false)}>    
+          {isLoading
+            ? 'Loading...'
+            : <SlideMenu />
+          }
+        </SlideNavBar>
         <CartIcon />
-        <a.div style={{ ...slideInStyles, overflow: "hidden" }}>
-          
-          <div className='cart-dropdown' ref={heightRef}>
-            <div className='cart-items'>
-            asdasdasdsa
-            </div>
-          </div>
-        </a.div>
+        { hidden ? null : <CartDropdown />}
     </HeaderContainer>
   )
 };
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  hidden: selectCartHidden
+  hidden: selectCartHidden,
+  collections: selectCollectionsForPreview,
+  isLoading: selectIsCollectionFetching
 });
 
 export default connect(mapStateToProps)(HeaderMobile);
 
 // QUITAR HIDDEN y TOGGLE POR REDUX DEL CART-ICON
 // VER COMO PONER 2 DRAWERS DISTINTOS
+
+// onClick={toggleDrawer('drawerOpen', false)}

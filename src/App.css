@@ -1,6 +1,6 @@
 body {
   font-family: 'Lato', sans-serif;
-  padding: 0;
+  padding-top: 75px;
   background-color: rgb(243, 241, 239);
 }
 
@@ -12,4 +12,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.wrapper {
+  display: block;
 }

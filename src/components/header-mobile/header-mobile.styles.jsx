@@ -13,18 +13,16 @@ const PARAMS = {
 };
 
 export const HeaderContainer = styled.div`
+  top: 0;
+  position: fixed;
   height: 75px;
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
   margin-bottom: 20px;
   padding: 10px 10px 10px 10px;
-  background-color: transparent;
-
-  .nav--active {
-    opacity: 1;
-    background-color: ${PARAMS.nav_bg_active};
-  }
+  background-color: white;
+  z-index: 10;
 `;
 
 export const NavTrigger = styled(Link)`
@@ -38,10 +36,6 @@ export const NavTrigger = styled(Link)`
 
   &:focus, &:active {
     outline: none;
-  }
-
-  .nav--active {
-    opacity: 0.5;
   }
 `;
 
@@ -104,7 +98,7 @@ export const LogoContainer = styled(Link)`
 
 `;
 
-export const OptionsContainer = styled.nav`
+export const SlideNavBar = styled.nav`
   width: 100%;
   height: 100vh;
   padding-top: 75px;
@@ -119,7 +113,7 @@ export const OptionsContainer = styled.nav`
   transition: transform 0.3s ${PARAMS.ease};
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
   background-color: white;
-  opacity: 0.9;
+  opacity: 1;
   z-index: 10;
 `;
 
@@ -127,7 +121,7 @@ export const OptionLink = styled(Link)`
   padding: 5px 0px;
   margin: 20px 15px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 16px;
   position: relative;
   color: ${PARAMS.nav_color};
   text-decoration: none;

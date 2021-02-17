@@ -31,9 +31,9 @@ const Header = ( { currentUser, hidden, dispatch } ) => {
   }, []);
 
   return (
-    <div>
+    <nav>
     { mobileView ? <HeaderMobile /> : (<HeaderDesktop />) }
-    </div>
+    </nav>
   );
 };
 
