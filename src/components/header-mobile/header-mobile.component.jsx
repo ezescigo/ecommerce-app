@@ -7,62 +7,75 @@ import { selectCollectionsForPreview } from '../../redux/collections/collections
 import { selectIsCollectionFetching } from '../../redux/collections/collections.selectors';
 
 import { auth } from '../../firebase/firebase.utils';
+import { useOnClickOutside } from '../../hooks';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { HeaderContainer, SlideNavBar, OptionLink, NavTrigger, NavIcon } from './header-mobile.styles.jsx';
+import { HeaderContainer, SlideNavBar, OptionsContainer, OptionLink, NavButton, NavIcon, NavContainer } from './header-mobile.styles.jsx';
 import { LogoContainer } from '../header/header.styles';
 
-import NavItem from '../nav-item/nav-item.component';
+import { BsPerson, BsHeart } from 'react-icons/bs';
+import { BiCart } from 'react-icons/bi';
+
 import SlideMenu from '../slide-menu/slide-menu.component';
-import { CSSTransition } from 'react-transition-group';
 
 const HeaderMobile = ({ hidden, currentUser, collections, isLoading }) => {
-  const [state, setState] = useState({
-    drawerOpen: false,
-  });
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const node = useRef();
+  useOnClickOutside(node, () => toggleDrawer(false));
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const getUserFirstName = () => {
+    const userFirstName = currentUser.displayName.replace(/ .*/,'');
+    return userFirstName;
+  }
+  
+
+  const toggleDrawer = (toggle) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
-    setState({ ...state, [anchor]: open });
+    event.stopPropagation();
+    setDrawerOpen(toggle);
   };
 
   return(
     <HeaderContainer>
-      <NavTrigger onClick={toggleDrawer('drawerOpen', !state.drawerOpen)}>
-        <NavIcon open={state.drawerOpen} />
-      </NavTrigger>
-      <LogoContainer>
+      <NavContainer>
+        <NavButton onClick={toggleDrawer(!drawerOpen)}>
+          <NavIcon open={drawerOpen} />
+        </NavButton>
+      </NavContainer>
+      <LogoContainer to='/'>
         <Logo />
       </LogoContainer>
-      <OptionLink to='/shop'>
-              Shop
-      </OptionLink>
-      <OptionLink to='/wishlist'>
-          Wishlist
-      </OptionLink>
-      { currentUser ? 
-        (<OptionLink as='div' onClick={() => auth.signOut()}>
-            Sign Out
+      <OptionsContainer>
+        <OptionLink to='/shop'>
+            
         </OptionLink>
-        ) : (
-        <OptionLink to='/signin'>
-            Sign In
+        <OptionLink to='/wishlist'>
+            <BsHeart />
         </OptionLink>
-        )}
-
-        <SlideNavBar open={state.drawerOpen} onClose={toggleDrawer('drawerOpen', false)}>    
-          {isLoading
-            ? 'Loading...'
-            : <SlideMenu />
-          }
-        </SlideNavBar>
-        <CartIcon />
-        { hidden ? null : <CartDropdown />}
+        { currentUser ? 
+          (
+            <OptionLink as='div' onClick={() => auth.signOut()}>
+            hola {getUserFirstName()}!
+          </OptionLink>
+          ) : (
+          <OptionLink to='/signin'>
+              Sign In
+          </OptionLink>
+          )}
+        <OptionLink to='/checkout'>
+          <CartIcon mobile={true} />
+        </OptionLink>
+      </OptionsContainer>
+      <SlideNavBar open={drawerOpen}>    
+        {isLoading
+          ? 'Loading...'
+          : <SlideMenu open={drawerOpen} />
+        }
+      </SlideNavBar>
     </HeaderContainer>
   )
 };
@@ -75,8 +88,5 @@ const mapStateToProps = createStructuredSelector({
 });
 
 export default connect(mapStateToProps)(HeaderMobile);
-
-// QUITAR HIDDEN y TOGGLE POR REDUX DEL CART-ICON
-// VER COMO PONER 2 DRAWERS DISTINTOS
 
 // onClick={toggleDrawer('drawerOpen', false)}

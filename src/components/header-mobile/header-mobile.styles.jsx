@@ -25,8 +25,20 @@ export const HeaderContainer = styled.div`
   z-index: 10;
 `;
 
-export const NavTrigger = styled(Link)`
+export const OptionsContainer = styled.div`
+  display: inline-flex;
+  justify-content: flex-end;
+  padding: 10px;
+  width: 300px;
+`;
+
+export const NavContainer = styled.div`
   display: block;
+  width: 300px;
+  z-index: 200; 
+`;
+
+export const NavButton = styled(Link)`
   height: 100%;
   width: 70px;
   padding: 0px 10px 0px 5px;
@@ -88,14 +100,14 @@ export const NavIcon = styled.span`
 `;
 
 export const LogoContainer = styled(Link)`
-  display: block;
+  display: flex;
   height: 100%;
   width: 70px;
   padding: 10px;
   align-self: center;
   align-items: center;
   justify-content: center;
-
+  flex: 2;
 `;
 
 export const SlideNavBar = styled.nav`

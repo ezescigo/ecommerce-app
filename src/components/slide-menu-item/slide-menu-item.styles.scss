@@ -1,18 +1,58 @@
 .slide-menu-item {
   display: flex;
-  height: 70px;
+  height: 60px;
   width: 100%;
   margin: 0 auto;
-  padding-left: 50px;
+  padding-left: 70px;
   align-items: center;
   justify-content: left;
   cursor: pointer;
   transition: all 300ms ease;
   font-size: 20px;
+  border-bottom: 0.5px solid rgb(197, 191, 191)  ;
+
+  .slide-icon-container {
+    margin: auto 0px;
+    margin-left: 10px;
+    display: none;
+  
+    .arrow-icon {
+      cursor: pointer;
+      padding: 10px;
+      width: 45px;
+      height: 100%;
+    }
+  };
  
   &:hover {
     background-color: rgb(215, 215, 226);
-    background: linear-gradient(to right, #e4e0e0  0%,#ffffff  60%); 
+    background: linear-gradient(to right, #e4e0e0  0%,#ffffff  100%);
+  }
+};
+
+.category-title {
+
+  cursor: default;
+  font-size: 24px;
+  font-weight: 600;
+  padding-left: 20px;
+
+  &:hover {
+    background: none;
   }
 }
+
+.category {
+  font-size: 24px;
+  font-weight: 600;
+  padding-left: 70px;
+
+  &:hover {
+    .slide-icon-container {
+      display: flex;
+    }
+  }
+}
+
+
 

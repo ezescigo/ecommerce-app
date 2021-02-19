@@ -12,27 +12,21 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import HeaderDesktop from '../header-desktop/header-desktop.component';
 import HeaderMobile from '../header-mobile/header-mobile.component';
+import useBreakpoints from '../../hooks';
+import { useMediaQuery } from 'react-responsive';
 
 const Header = ( { currentUser, hidden, dispatch } ) => {
-  const [state, setState] = useState({
-    mobileView: (window.innerWidth < 480)
-  });
-  const { mobileView } = state;
-
-  useEffect(() => {
-    // Function that sets mobileView state to true or false depending on innerWidth.
-    const setResponsiveness = () => {
-      return window.innerWidth < 480
-       ? setState((prevState) => ({ ...prevState, mobileView: true}))
-       : setState((prevState) => ({ ...prevState, mobileView: false}));
-    };
-    setResponsiveness();
-    window.addEventListener("resize", () => setResponsiveness());
-  }, []);
-
+  const [isMob, setIsMob] = useState();
+  // const {isXs, isSm, isMd, isLg, active} = useBreakpoints();
+  
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
+  
+  // console.log(isXs, isSm, isMd, isLg, active);
   return (
     <nav>
-    { mobileView ? <HeaderMobile /> : (<HeaderDesktop />) }
+    {isDesktopOrLaptop ? <HeaderDesktop /> : <HeaderMobile />}
     </nav>
   );
 };

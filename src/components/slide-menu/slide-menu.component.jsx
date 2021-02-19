@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -21,12 +21,13 @@ const SlideMenu = ({ collections }) => {
     <div className='slide-menu'>
       <CSSTransition
         in={activeMenu === 'main'}
-        timeout={500}
+        timeout={350}
         classNames="menu-primary"
         unmountOnExit>
         <div className='menu'>
+        
           {collections.map(({id, title}) =>
-            <SlideMenuItem key={id} onClick={() => handleOnClick(title)}>
+            <SlideMenuItem key={id} onClick={() => handleOnClick(title)} type='category'>
               {title}
             </SlideMenuItem> 
           )}
@@ -35,25 +36,25 @@ const SlideMenu = ({ collections }) => {
 
       { collections.map(({ id, title, items }) => (
         <CSSTransition
-        key={id}
-        in={activeMenu === `${title}`}
-        timeout={500}
-        classNames="menu-secondary"
-        unmountOnExit>
-        <div className='menu'>
-          <div className='slide-menu-category'>
-            <div className='slide-icon-container'>
-              <IoIosArrowBack className='arrow-icon' onClick={() => handleOnClick('main')}/>
+          key={id}
+          in={activeMenu === `${title}`}
+          timeout={350}
+          classNames="menu-secondary"
+          unmountOnExit>
+          <div className='menu'>
+            <div className='slide-menu-category'>
+              <div className='slide-icon-container'>
+                <IoIosArrowBack className='arrow-icon' onClick={() => handleOnClick('main')}/>
+              </div>
+              <SlideMenuItem type='category-title'>{title}</SlideMenuItem>
             </div>
-            <h2>{title}</h2>
-          </div>
-          
-          {items.map(item =>  
-            <SlideMenuItem key={item.id}>
-            { item.name }
-            </SlideMenuItem>)}
+            
+            {items.map(item =>  
+              <SlideMenuItem key={item.id} type='item'>
+              { item.name }
+              </SlideMenuItem>)}
 
-        </div>
+          </div>
       </CSSTransition>
       ))}
       
