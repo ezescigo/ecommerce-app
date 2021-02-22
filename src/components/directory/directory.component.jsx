@@ -11,13 +11,13 @@ import { DirectoryContainer, BackgroundImage } from './directory.styles';
 
 import { selectDirectorySection } from '../../redux/directory/directory.selectors';
 
-const SLIDE_COUNT = 5;
+const SLIDE_COUNT = 3;
 const slides = Array.from(Array(SLIDE_COUNT).keys());
 
 const Directory = ({ sections }) => {
   return (
     <DirectoryContainer>
-      <EmblaCarousel slides={slides} />
+      <EmblaCarousel slides={slides}  sections={sections} />
     </DirectoryContainer>
 )};
 

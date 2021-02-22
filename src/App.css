@@ -1,6 +1,7 @@
-body {
+body, p {
   font-family: 'Lato', sans-serif;
-  background-color: rgb(243, 241, 239);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* To avoid purple/marked <Link> */
@@ -15,4 +16,5 @@ a {
 
 .wrapper {
   display: block;
+  margin-top: 75px;
 }

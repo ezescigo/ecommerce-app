@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import CustomButton from '../../components/custom-button/custom-button.component';
 import SignIn from '../../components/sign-in/sign-in.component';
 import SignUp from '../../components/sign-up/sign-up.component';
 
 import './sign-in-and-sign-up.styles.scss';
 
-const SignInAndSignUpPage = () => (
+const SignInAndSignUpPage = () => {
+  
+  return(
     <div className='sign-in-and-sign-up'>
-        <SignIn />
-        <SignUp />
+      <SignIn />
+      <SignUp />
     </div>
-);
+)};
 
 export default SignInAndSignUpPage;

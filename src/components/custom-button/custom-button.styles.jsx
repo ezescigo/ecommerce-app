@@ -19,7 +19,6 @@ const googleSignInStyles = css`
 
   &:hover {
     background-color: #357ae8;
-    border: 1px solid black;
   }
 `;
 
@@ -50,6 +49,7 @@ export const CustomButtonContainer = styled.button`
   letter-spacing: 0.5px;
   line-height: 50px;
   padding: 0 25px 0 25px;
+  margin: 10px 0 10px 0;
   font-size: 13px;
   text-transform: uppercase;
   font-family: 'Piazzolla';
@@ -57,6 +57,7 @@ export const CustomButtonContainer = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: center;
+  border-radius: 5px;
 
   ${getButtonStyles};
 `;

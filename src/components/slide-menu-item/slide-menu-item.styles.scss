@@ -10,6 +10,7 @@
   transition: all 300ms ease;
   font-size: 20px;
   border-bottom: 0.5px solid rgb(197, 191, 191)  ;
+  color: white;
 
   .slide-icon-container {
     margin: auto 0px;
@@ -21,12 +22,14 @@
       padding: 10px;
       width: 45px;
       height: 100%;
+      color: white;
     }
   };
  
   &:hover {
-    background-color: rgb(215, 215, 226);
-    background: linear-gradient(to right, #e4e0e0  0%,#ffffff  100%);
+    color: white;
+    background-color: rgb(50, 70, 93);
+    background: linear-gradient(to right, rgba(50, 70, 93, 0.9)  0%,rgba(50, 70, 93, 0.9)  100%);
   }
 };
 

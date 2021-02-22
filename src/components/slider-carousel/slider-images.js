@@ -2,7 +2,6 @@ import media1 from "./licours.jpg";
 import media2 from "./shelves.jpg";
 import media3 from "./we_are_open.jpg";
 
-
 export const sectionsasd = [
      "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
      "https://drive.google.com/uc?export=view&id=1EXX4Jk-Vu0k2bJz4IK36weTP7t7Nv_Vl",

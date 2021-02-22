@@ -2,17 +2,24 @@ import React, { useState, useEffect, useCallback } from "react";
 import { DotButton, PrevButton, NextButton } from "./slider-carousel-buttons";
 import { useRecursiveTimeout } from "./useRecursiveTimeout";
 import { useEmblaCarousel } from "embla-carousel/react";
-import { mediaByIndex } from "./slider-images";
 import "./slider-carousel.styles.scss";
+import media1 from '../../assets/we_are_open2.jpg';
+import media2 from '../../assets/home3.jpeg';
+import media3 from '../../assets/home4.jpeg';
 
 const AUTOPLAY_INTERVAL = 4000;
 
-const EmblaCarousel = ({ slides }) => {
-  const [viewportRef, embla] = useEmblaCarousel();
+const EmblaCarousel = ({ slides, sections }) => {
+  const [viewportRef, embla] = useEmblaCarousel({ loop: true });
   // const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   // const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
+
+  let media = [media1, media2, media3];
+  // sections.map(section => media.push(section.imageUrl));
+  // console.log(media);
+  const mediaByIndex = index => media[index % media.length];
 
   const autoplay = useCallback(() => {
     if (!embla) return;
@@ -71,7 +78,7 @@ const EmblaCarousel = ({ slides }) => {
                 <img
                   className="embla__slide__img"
                   src={mediaByIndex(index)}
-                  alt="A cool cat."
+                  alt=""
                 />
               </div>
             </div>

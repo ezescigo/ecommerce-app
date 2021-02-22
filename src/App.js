@@ -24,7 +24,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, collectionsArray } = this.props;
+    const { setCurrentUser, collectionsArray, fetchCollectionsStartAsync } = this.props;
     fetchCollectionsStartAsync();
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
         // check if signed in
@@ -52,7 +52,7 @@ class App extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className='wrapper'>
         <Header />
         <ToastContainer autoClose={3000} />
         <Switch>
@@ -83,7 +83,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  fetchCollectionsStartAsync: () => console.log('dispatch')
+  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
 
 export default connect(

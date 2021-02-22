@@ -12,14 +12,12 @@ import { useOnClickOutside } from '../../hooks';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as Logo } from '../../assets/logozuruck.svg';
 import { HeaderContainer, SlideNavBar, OptionsContainer, OptionLink, NavButton, NavIcon, NavContainer } from './header-mobile.styles.jsx';
-import { LogoContainer } from '../header/header.styles';
+import { LogoContainer, LogoText } from '../header/header.styles';
 
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
-import { BsPerson } from 'react-icons/bs';
-import { BiCart } from 'react-icons/bi';
 
 import SlideMenu from '../slide-menu/slide-menu.component';
 
@@ -28,7 +26,7 @@ const HeaderMobile = ({ hidden, currentUser, collections, isLoading, isXsDevice,
   const node = useRef();
   useOnClickOutside(node, () => toggleDrawer(false));
 
-
+  
   
 
   const toggleDrawer = (toggle) => (event) => {
@@ -46,13 +44,10 @@ const HeaderMobile = ({ hidden, currentUser, collections, isLoading, isXsDevice,
           <NavIcon open={drawerOpen} />
         </NavButton>
       </NavContainer>
-      <LogoContainer to='/'>
-        <Logo />
+      <LogoContainer to='/' isXsDevice={isXsDevice}>
+        <LogoText>ZURÜCK</LogoText>
       </LogoContainer>
       <OptionsContainer>
-        <OptionLink to='/shop'>
-            
-        </OptionLink>
         <OptionLink to='/wishlist'>
           { wishlistItemCount > 0
             ? (<div>

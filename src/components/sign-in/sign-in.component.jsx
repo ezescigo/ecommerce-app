@@ -36,31 +36,37 @@ const SignIn = () => {
 
   return (
     <div className='sign-in'>
-        <h2>I already have an account</h2>
-        <span>Sign in with your email and password</span>
+      <div className='exit-button-container'>
+        <h3>Already registered?</h3>
+        <div className='exit-button'>
+          <span onClick={() => console.log('click')}>x</span>
+        </div>
+      </div>
+      <span>Sign in with your email and password</span>
 
-        <form onSubmit={handleSubmit}>
-            <FormInput 
-                name="email" 
-                type="email" 
-                value={email}
-                handleChange={handleChange}
-                label="email" 
-                required
-            />
-            <FormInput  
-                name="password" 
-                type="password" 
-                value={password}
-                handleChange={handleChange}  
-                label="password"
-                required 
-            />
-            <div className='buttons'>
-                <CustomButton type="submit"> Sign In </CustomButton>
-                <CustomButton onClick={signInWithGoogle} isGoogleSignIn> Sign in with Google </CustomButton>
-            </div>
-        </form>
+      <form onSubmit={handleSubmit}>
+        <FormInput 
+            name="email" 
+            type="email" 
+            value={email}
+            handleChange={handleChange}
+            label="Email address" 
+            required
+        />
+        <FormInput  
+            name="password" 
+            type="password" 
+            value={password}
+            handleChange={handleChange}  
+            label="Password"
+            required 
+        />
+        <div className='buttons'>
+            <CustomButton type="submit"> Sign In </CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn> Sign in with Google </CustomButton>
+            <CustomButton inverted>Register</CustomButton>
+        </div>
+      </form>
     </div>
   );
 }

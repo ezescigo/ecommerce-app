@@ -7,7 +7,7 @@ import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import HeaderContainer from './header.component';
+import {HeaderContainer} from './header.component';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import HeaderDesktop from '../header-desktop/header-desktop.component';
@@ -18,7 +18,7 @@ import { useMediaQuery } from 'react-responsive';
 const Header = ( { currentUser, hidden, dispatch } ) => {
   // const {isXs, isSm, isMd, isLg, active} = useBreakpoints();
   const isXsDevice = useMediaQuery({
-    query: '(max-width: 340px)'
+    query: '(max-width: 404px)'
   });
   
   const isDesktopOrLaptop = useMediaQuery({
