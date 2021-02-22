@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const PARAMS = {
   main_bg: '#1BBC9B',
-  nav_color: '#524338',
+  nav_color: '#ffff',
   nav_bg_active:  '#D2527F',
   screen_bg: '#D2527F',
   duration: '300ms',
@@ -21,27 +21,23 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
   padding: 10px 10px 10px 10px;
-  background-color: white;
+  background-color: transparent;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 35px 30px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 10px -18px inset;
   z-index: 10;
-`;
-
-export const OptionsContainer = styled.div`
-  display: inline-flex;
-  justify-content: flex-end;
-  padding: 10px;
-  width: 300px;
 `;
 
 export const NavContainer = styled.div`
   display: block;
-  width: 300px;
+  width: auto;
   z-index: 200; 
 `;
 
 export const NavButton = styled(Link)`
+  display: inline-block;
+  position: relative;
+  padding-left: 15px;
   height: 100%;
-  width: 70px;
-  padding: 0px 10px 0px 5px;
+  width: 100%;
   align-items: center;
   justify-content: center;
   z-index: 200; 
@@ -54,6 +50,7 @@ export const NavButton = styled(Link)`
 export const NavIcon = styled.span`
   display: inline-block;
   position: relative;
+  
   width: 30px;
   height: 5px;
   top: 15px;
@@ -102,12 +99,12 @@ export const NavIcon = styled.span`
 export const LogoContainer = styled(Link)`
   display: flex;
   height: 100%;
-  width: 70px;
+  width: auto;
   padding: 10px;
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  flex: 2;
+  align-self: flex-start;
+  flex: 1;
+  /* Small devices: 440px and lower  */
+
 `;
 
 export const SlideNavBar = styled.nav`
@@ -129,14 +126,42 @@ export const SlideNavBar = styled.nav`
   z-index: 10;
 `;
 
+export const OptionsContainer = styled.div`
+  display: inline-flex;
+  justify-content: flex-end;
+  align-content: center;
+  width: auto;
+  flex-grow: 2;
+  
+`;
+
 export const OptionLink = styled(Link)`
-  padding: 5px 0px;
-  margin: 20px 15px;
+  display: flex;
+  width: auto;
+  padding: 5px;
+  margin: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+  align-content: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 16px;
-  position: relative;
   color: ${PARAMS.nav_color};
   text-decoration: none;
+  text-align: center;
+
+  .navbar-icon {
+    vertical-align: top;
+  }
+
+  .item-count {
+    position: relative;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    color: whitesmoke;
+    letter-spacing: 0.05em;
+
+  }
 
   &::after {
     content: '';

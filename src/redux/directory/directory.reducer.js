@@ -1,12 +1,6 @@
 const INITIAL_STATE = {
   sections: [
     {
-      title: "wristlets",
-      imageUrl: "https://drive.google.com/uc?export=view&id=1MgJTJUAQyk6221k8R-zsC-yzDo-M2r4N",
-      id: 1,
-      linkUrl: "shop/wristlets",
-    },
-    {
       title: "belts",
       imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
       id: 2,

@@ -5,6 +5,7 @@ import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
 import { selectIsCollectionFetching } from '../../redux/collections/collections.selectors';
+import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
 
 import { auth } from '../../firebase/firebase.utils';
 import { useOnClickOutside } from '../../hooks';
@@ -15,20 +16,19 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { HeaderContainer, SlideNavBar, OptionsContainer, OptionLink, NavButton, NavIcon, NavContainer } from './header-mobile.styles.jsx';
 import { LogoContainer } from '../header/header.styles';
 
-import { BsPerson, BsHeart } from 'react-icons/bs';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { IoPerson, IoPersonOutline } from 'react-icons/io5';
+import { BsPerson } from 'react-icons/bs';
 import { BiCart } from 'react-icons/bi';
 
 import SlideMenu from '../slide-menu/slide-menu.component';
 
-const HeaderMobile = ({ hidden, currentUser, collections, isLoading }) => {
+const HeaderMobile = ({ hidden, currentUser, collections, isLoading, isXsDevice, wishlistItemCount }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const node = useRef();
   useOnClickOutside(node, () => toggleDrawer(false));
 
-  const getUserFirstName = () => {
-    const userFirstName = currentUser.displayName.replace(/ .*/,'');
-    return userFirstName;
-  }
+
   
 
   const toggleDrawer = (toggle) => (event) => {
@@ -54,20 +54,27 @@ const HeaderMobile = ({ hidden, currentUser, collections, isLoading }) => {
             
         </OptionLink>
         <OptionLink to='/wishlist'>
-            <BsHeart />
+          { wishlistItemCount > 0
+            ? (<div>
+                <AiFillHeart size={30} className='navbar-icon' />
+                <span className='item-count'>{wishlistItemCount}</span>
+              </div>)
+            : <AiOutlineHeart size={30} className='navbar-icon' />
+          }
+            
         </OptionLink>
         { currentUser ? 
           (
             <OptionLink as='div' onClick={() => auth.signOut()}>
-            hola {getUserFirstName()}!
-          </OptionLink>
+              <IoPerson size={30} className='navbar-icon' />
+            </OptionLink>
           ) : (
-          <OptionLink to='/signin'>
-              Sign In
-          </OptionLink>
+            <OptionLink to='/signin'>
+              <IoPersonOutline size={30} className='navbar-icon' />
+            </OptionLink>
           )}
         <OptionLink to='/checkout'>
-          <CartIcon mobile={true} />
+          <CartIcon mobile={true} isXsDevice={isXsDevice} />
         </OptionLink>
       </OptionsContainer>
       <SlideNavBar open={drawerOpen}>    
@@ -84,7 +91,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden,
   collections: selectCollectionsForPreview,
-  isLoading: selectIsCollectionFetching
+  isLoading: selectIsCollectionFetching,
+  wishlistItemCount: selectWishlistItemsCount
 });
 
 export default connect(mapStateToProps)(HeaderMobile);

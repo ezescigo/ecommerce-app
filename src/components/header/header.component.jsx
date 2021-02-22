@@ -16,24 +16,25 @@ import useBreakpoints from '../../hooks';
 import { useMediaQuery } from 'react-responsive';
 
 const Header = ( { currentUser, hidden, dispatch } ) => {
-  const [isMob, setIsMob] = useState();
   // const {isXs, isSm, isMd, isLg, active} = useBreakpoints();
+  const isXsDevice = useMediaQuery({
+    query: '(max-width: 340px)'
+  });
   
   const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-width: 1224px)'
-  })
+    query: '(min-width: 970px)'
+  });
   
-  // console.log(isXs, isSm, isMd, isLg, active);
   return (
     <nav>
-    {isDesktopOrLaptop ? <HeaderDesktop /> : <HeaderMobile />}
+    {isDesktopOrLaptop ? <HeaderDesktop /> : <HeaderMobile isXsDevice={isXsDevice} />}
     </nav>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  hidden: selectCartHidden
+  hidden: selectCartHidden,
 });
 
 export default connect(mapStateToProps)(Header);

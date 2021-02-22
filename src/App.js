@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { fetchCollectionsStartAsync } from './redux/collections/collections.actions';
 
 import { selectCollectionsForPreview } from './redux/collections/collections.selectors';
 
@@ -24,7 +25,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const { setCurrentUser, collectionsArray } = this.props;
-
+    fetchCollectionsStartAsync();
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
         // check if signed in
       if (userAuth) {
@@ -81,7 +82,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  fetchCollectionsStartAsync: () => console.log('dispatch')
 });
 
 export default connect(

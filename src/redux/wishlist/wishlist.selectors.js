@@ -11,3 +11,9 @@ export const selectAllFavItems = createSelector(
   [selectWishlist],
   (wishlist) => [...wishlist.wishlistItems, ...wishlist.toAdd]
 );
+
+export const selectWishlistItemsCount = createSelector(
+  [selectWishlistItems],
+  (wishlistItems) => 
+    wishlistItems.length
+);

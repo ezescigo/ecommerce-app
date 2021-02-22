@@ -5,11 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 
+import { RiShoppingCartLine, RiShoppingCartFill } from 'react-icons/ri';
+
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 
 import './cart-icon.styles.scss';
 
-const CartIcon = ({ toggleCartHidden, itemCount, mobile }) => {
+const CartIcon = ({ toggleCartHidden, itemCount, mobile, isXsDevice }) => {
   const handleOnClick = () => {
     if (!mobile) {
       toggleCartHidden()
@@ -17,8 +19,14 @@ const CartIcon = ({ toggleCartHidden, itemCount, mobile }) => {
   }
   return (
   <div className='cart-icon' onClick={() => handleOnClick()}>
-    <ShoppingIcon className='shopping-icon' />
-    <span className='item-count'>({itemCount})</span>
+    { itemCount > 0
+      ? <RiShoppingCartFill size={30} className='shopping-icon' />
+      : <RiShoppingCartLine size={30} className='shopping-icon' />
+    }
+    { isXsDevice
+      ? null
+      : <span className='cart-item-count'>{itemCount}</span>
+    }
   </div>
 )};
 

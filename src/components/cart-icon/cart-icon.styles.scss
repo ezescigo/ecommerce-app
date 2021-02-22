@@ -1,24 +1,21 @@
 .cart-icon {
-  margin: auto 0;
-  width: 41px;
-  height: 41px;
-  display: flex;
+  margin: auto;
+  display: block;
   cursor: pointer;
-  flex-direction: row;
   align-items: center;
+  justify-content: center;
 
   .shopping-icon {
-    margin-bottom: 6px;
-    width: 20px;
-    vertical-align: middle;
+    vertical-align: top;
   }
 
-  .item-count {
+  .cart-item-count {
+    position: relative;
+    margin-left: 3px;
     font-size: 13px;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
-    align-self: center;
-    margin-bottom: 3px;
+    color: rgb(201, 187, 187);
     letter-spacing: 0.05em;
   }
 }

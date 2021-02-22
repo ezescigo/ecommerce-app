@@ -12,6 +12,14 @@ import { HeaderContainer, OptionsContainer, OptionLink } from './header-desktop.
 import { LogoContainer } from '../header/header.styles';
 
 const HeaderDesktop = ({ hidden, currentUser }) => {
+
+  const getUserFirstName = () => {
+    const userFirstName = currentUser.displayName.replace(/ .*/,'');
+    return userFirstName;
+  }
+
+  // hola {getUserFirstName()}!
+
   return(
     <HeaderContainer>
       <LogoContainer to="/">

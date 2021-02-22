@@ -1,6 +1,15 @@
-.directory-menu {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+.home {
+  width: 100vw;
+  overflow: hidden;
+}
+
+.embla {
+  overflow: hidden;
+}
+.embla-container {
+  display: flex;
+}
+.embla-slide {
+  position: relative;
+  min-width: 100%;
+}
