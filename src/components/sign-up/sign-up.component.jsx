@@ -7,7 +7,7 @@ import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 import './sign-up.styles.scss';
 
-const SignUp = () => {
+const SignUp = ({ hidden, onClose }) => {
   const [newUserCredentials, setNewUserCredentials] = useState({
     displayName: '',
     email: '',
@@ -51,8 +51,13 @@ const SignUp = () => {
   }
 
   return(
-    <div className='sign-up'>
-      <h2 className='title'>I do not have an account</h2>
+    <div className={`sign-up ${hidden}`}>
+      <div className='exit-button-container'>
+        <h3>Create a new account</h3>
+        <div className='exit-button'>
+          <span onClick={onClose}>&#x2716;</span>
+        </div>
+      </div>
       <span>Sign up with your email and password</span>
       <form className='sign-up-form' onSubmit={handleSubmit}>
         <FormInput

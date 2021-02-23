@@ -21,6 +21,7 @@ import { fetchCollectionsStartAsync } from './redux/collections/collections.acti
 import { selectCollectionsForPreview } from './redux/collections/collections.selectors';
 
 class App extends React.Component {
+  // eslint-disable-next-line no-undef
   unsubscribeFromAuth = null;
 
   componentDidMount() {

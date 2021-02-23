@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const PARAMS = {
   main_bg: '#1BBC9B',
-  nav_color: '#C5F2E7',
+  nav_color: '#5d5f5f',
   nav_bg_active:  '#D2527F',
   screen_bg: '#D2527F',
   duration: '300ms',
@@ -22,9 +22,11 @@ export const HeaderContainer = styled.div`
   align-content: center;
   margin-bottom: 20px;
   padding: 10px 10px 10px 10px;
-  background-color: rgba(43, 132, 112, 0.8);
+  /* background-color: rgba(205, 211, 211, 0.8); */
   z-index: 10;
-  box-shadow: rgba(43, 132, 112, 0.9) 10px 35px 30px -5px inset, rgba(0, 0, 0, 0.3) 0px 18px 30px -18px inset, rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  -moz-box-shadow:    inset  0 -10px 20px -10px grey;
+  -webkit-box-shadow: inset  0 -10px 20px -10px grey;
+  box-shadow:        inset  0 -10px 20px -10px grey;
 `;
 
 export const NavContainer = styled.div`
@@ -85,11 +87,13 @@ export const NavIcon = styled.span`
           margin-top: 0;
           transform: rotate(45deg);
           height: 5px;
+          background-color: whitesmoke;
         };
         &:after {
           margin-top: 0;
           transform: rotate(-45deg);
           height: 5px;
+          background-color: whitesmoke;
         };
       `) : (css`
         &:before {
@@ -119,7 +123,7 @@ export const SlideNavBar = styled.nav`
   left: 0;
   transition: transform 0.3s ${PARAMS.ease};
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
-  background-color: rgba(43, 132, 112, 0.85);
+  background-color: rgba(91, 110, 106, 0.85);
   opacity: 1;
   z-index: 10;
 `;

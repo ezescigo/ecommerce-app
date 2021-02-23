@@ -17,10 +17,10 @@ export const LogoContainer = styled(Link)`
 
 export const LogoText = styled.span`
   margin: auto;
-  color: whitesmoke ;
+  color: #5a5555 ;
   font-family: 'Piazzola';
   font-weight: bold;
-  text-shadow: 0.5px 0.5px 0.5px rgb(127,195,179), 1px 1px 1px grey; 
+  text-shadow: 0.5px 0.5px 0.5px #4c5250, 1px 1px 1px grey; 
   transition: all 0.5s ease;
   font-size: ${({ isXsDevice }) => isXsDevice ? '18px' : '26px'};
 `;

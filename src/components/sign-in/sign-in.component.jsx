@@ -7,7 +7,7 @@ import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 import './sign-in.styles.scss';
 
-const SignIn = () => {
+const SignIn = ({ hidden, onClick, onClose }) => {
 
   const [userCredentials, setUserCredentials] = useState({
     email: '',
@@ -35,11 +35,11 @@ const SignIn = () => {
   };
 
   return (
-    <div className='sign-in'>
+    <div className={`sign-in ${hidden}`}>
       <div className='exit-button-container'>
         <h3>Already registered?</h3>
         <div className='exit-button'>
-          <span onClick={() => console.log('click')}>x</span>
+          <span onClick={onClose}>&#x2716;</span>
         </div>
       </div>
       <span>Sign in with your email and password</span>
@@ -64,7 +64,7 @@ const SignIn = () => {
         <div className='buttons'>
             <CustomButton type="submit"> Sign In </CustomButton>
             <CustomButton onClick={signInWithGoogle} isGoogleSignIn> Sign in with Google </CustomButton>
-            <CustomButton inverted>Register</CustomButton>
+            <CustomButton type="button" inverted onClick={onClick}>Register</CustomButton>
         </div>
       </form>
     </div>

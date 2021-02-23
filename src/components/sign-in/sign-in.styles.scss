@@ -6,6 +6,10 @@
   display: inline-flex;
   flex-direction: column;
 
+  &.hidden {
+    display: none;
+  }
+
   .exit-button-container {
     display: flex;
     flex-direction: row;
@@ -24,7 +28,7 @@
       text-align: center;
     }
     .exit-button {
-      transform: translateX(50%);
+      transform: translateX(30%);
       justify-self: flex-end;
       font-size: 26px;
       width: 40px;
