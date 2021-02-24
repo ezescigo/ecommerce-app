@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const PARAMS = {
   main_bg: '#1BBC9B',
-  nav_color: '#5d5f5f',
+  nav_color: '#343535',
   nav_bg_active:  '#D2527F',
   screen_bg: '#D2527F',
   duration: '300ms',

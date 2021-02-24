@@ -32,30 +32,33 @@ const CheckOutPage = ({ itemCount, cartItems, total, onClose, history }) => {
       </div>
     </div>
     <div className='checkout-main'>
-    {cartItems.length ?
-      (cartItems.map(cartItem => (
-        <CheckOutItem key={cartItem.id} cartItem={cartItem}/>
-      ))
-      ) : (
-        <span className='empty-cart'>Your shopping bag is empty.
-          <p>Check if there are any products on your wishlist and snatch them up before they're gone!</p>
-          <p>You can also check out the latest arrivals ;</p>
-        </span>
-      )
-    }
+      {cartItems.length ?
+        (cartItems.map(cartItem => (
+          <CheckOutItem key={cartItem.id} cartItem={cartItem}/>
+        ))
+        ) : (
+          <span className='empty-cart'>
+            <p>Your shopping bag is empty.</p>
+            <p>Check if there are any products on your wishlist and snatch them up before they're gone!</p>
+            <p>You can also check out the latest arrivals ;</p>
+          </span>
+        )
+      }
     </div>
     <div className='checkout-footer'>
       <div className='total'>
-        <p>TOTAL: ${total}</p>
+        <span className='total-text'>TOTAL</span>
+        <span className='total-price'>${total}</span>
       </div>
-    </div>
-  
-    <div className='test-warning'>
-      *Please use the following test credit card for payments*
-      <br />
-      4242 4242 4242 4242 - Exp: 01/21 - CVV: 123
-      <br />
-      <StripeCheckoutButton price={total} />
+      <div className='checkout-button-container'>
+        <StripeCheckoutButton price={total} />
+      </div>
+      <div className='test-warning'>
+        *test credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp: 01/21 - CVV: 123
+        <br />
+      </div>
     </div>
   </div>
 )}

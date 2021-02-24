@@ -1,5 +1,7 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
+import CustomButton from '../custom-button/custom-button.component';
+import './stripe-button.styles.scss';
 
 const StripeCheckoutButton = ({ price }) => {
   const priceForStripe = price * 100;
@@ -12,17 +14,17 @@ const StripeCheckoutButton = ({ price }) => {
 
   return (
     <StripeCheckout 
-      label='Pay Now'
       name='Ecommerce Company'
       billingAddress
       shippingAddress
-      image
       description={`Your total is $${price}`}
       amount={priceForStripe}
       panelLabel='Pay Now'
       token={onToken}
       stripeKey={publishableKey}
-    />
+    >
+        <CustomButton className='checkout-button'>Process Order</CustomButton>
+      </StripeCheckout>
   );
 };
 
