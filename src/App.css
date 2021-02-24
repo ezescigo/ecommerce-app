@@ -1,4 +1,4 @@
-body, p {
+body, p, span {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -8,6 +8,10 @@ body, p {
 a {
   text-decoration: none;
   color: black;
+}
+
+p {
+  margin: 0;
 }
 
 * {

@@ -46,7 +46,7 @@ const CheckOutPage = ({ itemCount, cartItems, total, onClose, history }) => {
     </div>
     <div className='checkout-footer'>
       <div className='total'>
-        <span>TOTAL: ${total}</span>
+        <p>TOTAL: ${total}</p>
       </div>
     </div>
   

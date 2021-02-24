@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
-
+import { RiDeleteBin7Line } from 'react-icons/ri';
+import { HiPlusSm, HiMinusSm } from 'react-icons/hi';
+import { AiOutlineHeart } from 'react-icons/ai';
 import { addItem, removeItemFromCart, clearItemFromCart } from '../../redux/cart/cart.actions';
 
 import './checkout-item.styles.scss';
@@ -23,20 +25,27 @@ const CheckOutItem = ({ cartItem, addItem, removeItem, clearItem }) => {
         <div className='row'>
           <span className='product-name'>{name}</span>
         </div>
-        <div className='row'>
+        <div className='row middle'>
           <span className='product-description'>{description}</span>
-        </div>
-        <div className='row'>
-          <div>
-            <span className='quantity'>
-              <div className='arrow' onClick={() => removeItem(cartItem)}>&#x2770;</div>
-                <span className='value'>{quantity}</span>
-              <div className='arrow' onClick={() => addItem(cartItem)}>&#x2771;</div>
-            </span>
+          <div className='quantity'>
+            <button className='arrow' onClick={() => removeItem(cartItem)}>
+             <HiMinusSm size={24} className='arrow-icon'/>
+            </button>
+            <div className='value'><p>{quantity}</p></div>
+            <button className='arrow' onClick={() => addItem(cartItem)}>
+              <HiPlusSm size={24} className='arrow-icon' />
+            </button>
           </div>
-          <span className='price'>${price}</span>
-          <div className='remove-button' onClick={() => clearItem(cartItem)}>
-            <p>&#x2716;</p>
+        </div>
+        <div className='footer'>
+          <button className='checkout-button-icon' onClick={() => clearItem(cartItem)}>
+            <RiDeleteBin7Line size={30} className='checkout-footer-icon' />
+          </button>
+          <button className='checkout-button-icon'>
+           <AiOutlineHeart size={30} className='checkout-footer-icon' />
+          </button>
+          <div className='price'>
+            <p className='value'>${price}</p>
           </div>
         </div>
       </div>
@@ -57,5 +66,3 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps,
   mapDispatchToProps
   )(CheckOutItem);
-
-// 
