@@ -8,17 +8,19 @@ import { selectCartItems, selectCartHidden } from '../../redux/cart/cart.selecto
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { useOnClickOutside } from '../../hooks';
 
-import CheckOut from '../checkout/checkout.component';
-import './cart-dropdown.styles.scss';
+import { CSSTransition } from 'react-transition-group';
 
-const CartDropdown = ({ cartItems, history, dispatch, hidden, toggleCartHidden }) => {
+import CheckOut from '../checkout/checkout.component';
+import { CartDropdownContainer } from './cart-dropdown.styles';
+
+const CartDropdown = ({ hidden, toggleCartHidden }) => {
   const node = useRef();
   useOnClickOutside(node, () => toggleCartHidden());
 
   return (
-    <div className='cart-dropdown'>
+    <CartDropdownContainer hidden={hidden}>
       <CheckOut closeCheckOut={() => toggleCartHidden()} />
-    </div>
+    </CartDropdownContainer>
   )
 };
 

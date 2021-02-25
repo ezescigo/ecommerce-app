@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-
-
 const PARAMS = {
   main_bg: '#1BBC9B',
   nav_color: '#343535',
@@ -26,7 +24,7 @@ export const HeaderContainer = styled.div`
   z-index: 10;
   -moz-box-shadow:    inset  0 -10px 20px -10px grey;
   -webkit-box-shadow: inset  0 -10px 20px -10px grey;
-  box-shadow:        inset  0 -10px 20px -10px grey;
+  box-shadow: rgba(50, 50, 93, 0.3) 0px 50px 100px -20px, rgba(0, 0, 0, 0.4) 0px 30px 60px -30px, rgba(10, 37, 64, 0.45) 0px -2px 6px 0px inset;
 `;
 
 export const OptionsContainer = styled.div`
@@ -91,4 +89,33 @@ export const OptionLink = styled(Link)`
     left: 0;
     width: 100%;
   }
+
+  .cart-dropdown-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  /* height: 0px; */
+
+  .cart-dropdown-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+    /* height: 100%;
+    transition: height 0.3s ease;
+    -webkit-transition: height 0.3s ease; */
+  }
+  .cart-dropdown-exit {
+    opacity: 1;
+    }
+
+  .cart-dropdown-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+    /* height: 0px;
+    transition: height 0.3s ease;
+    -webkit-transition: height 0.3s ease; */
+  }
+  }
+
+
 `;

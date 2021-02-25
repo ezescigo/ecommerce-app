@@ -6,9 +6,8 @@ const ButtonStyles = css`
   border: none;
 
   &:hover {
-    background-color: white;
-    color: #2b2a2a;
-    border: 1px solid #3b3a3a;
+    background-color: #221f1f;
+    color: #f0e9e9;
   }
 `;
 
@@ -59,6 +58,7 @@ export const CustomButtonContainer = styled.button`
   justify-content: center;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: all 0.2s ease-in-out;
 
   ${getButtonStyles};
 `;

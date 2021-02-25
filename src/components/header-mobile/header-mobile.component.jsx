@@ -22,8 +22,6 @@ import { LogoContainer, LogoText } from '../header/header.styles';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
-
-
 const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
 
   const getUserFirstName = () => {
@@ -69,7 +67,7 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
       </OptionsContainer>
       {hidden
       ? null
-      : <CartDropdown />}
+      : <CartDropdown hidden={hidden} />}
     </HeaderContainer>
   )
 };
