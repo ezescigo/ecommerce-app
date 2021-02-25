@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { addItem } from '../../redux/cart/cart.actions';
-import { toggleWishlistItem, undo, updateWishlist } from '../../redux/wishlist/wishlist.actions';
+import { toggleWishlistItem, updateWishlist } from '../../redux/wishlist/wishlist.actions';
 
 import FavIcon from '../fav-icon/fav-icon.component';
 import Undo from '../undo-toast/undo-toast.component';

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 
 import { withRouter } from 'react-router-dom';
 
@@ -8,10 +8,7 @@ import { selectCartItems, selectCartHidden } from '../../redux/cart/cart.selecto
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { useOnClickOutside } from '../../hooks';
 
-import CustomButton from '../custom-button/custom-button.component';
-import CartItem from '../cart-item/cart-item.component';
-
-
+import CheckOut from '../checkout/checkout.component';
 import './cart-dropdown.styles.scss';
 
 const CartDropdown = ({ cartItems, history, dispatch, hidden, toggleCartHidden }) => {
@@ -19,23 +16,8 @@ const CartDropdown = ({ cartItems, history, dispatch, hidden, toggleCartHidden }
   useOnClickOutside(node, () => toggleCartHidden());
 
   return (
-    <div ref={node} className='cart-dropdown'>
-      <div className='cart-items'>
-        {cartItems.length ?
-          (cartItems.map(cartItem =>
-            <CartItem key={cartItem.id} item={cartItem}/>
-          )
-          ) : (
-            <span className='empty-cart'>Your cart is empty.</span>
-          )
-        }
-      </div>
-      <CustomButton 
-        onClick={() => {
-          history.push('/checkout');
-          dispatch(toggleCartHidden());
-        }}
-      >Go To Checkout</CustomButton>
+    <div className='cart-dropdown'>
+      <CheckOut closeCheckOut={() => toggleCartHidden()} />
     </div>
   )
 };

@@ -1,53 +1,58 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
 import { selectIsCollectionFetching } from '../../redux/collections/collections.selectors';
 import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
+import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 import { auth } from '../../firebase/firebase.utils';
 import { useOnClickOutside } from '../../hooks';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import { ReactComponent as Logo } from '../../assets/logozuruck.svg';
-import { HeaderContainer, SlideNavBar, OptionsContainer, OptionLink, NavButton, NavIcon, NavContainer } from './header-mobile.styles.jsx';
+
+import HeaderSideBar from '../header-sidebar/header-sidebar.component';
+import { HeaderContainer, OptionsContainer, OptionLink } from './header-mobile.styles.jsx';
 import { LogoContainer, LogoText } from '../header/header.styles';
 
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
-import SlideMenu from '../slide-menu/slide-menu.component';
 
-const HeaderMobile = ({ hidden, currentUser, collections, isLoading, isXsDevice, wishlistItemCount }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const node = useRef();
-  useOnClickOutside(node, () => toggleDrawer(false));
 
-  
-  
+const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
 
-  const toggleDrawer = (toggle) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    event.stopPropagation();
-    setDrawerOpen(toggle);
-  };
+  const getUserFirstName = () => {
+    const userFirstName = currentUser.displayName.replace(/ .*/,'');
+    return userFirstName;
+  }
 
   return(
     <HeaderContainer>
-      <NavContainer>
-        <NavButton onClick={toggleDrawer(!drawerOpen)}>
-          <NavIcon open={drawerOpen} />
-        </NavButton>
-      </NavContainer>
+      <HeaderSideBar isLoading={isLoading} />
       <LogoContainer to='/' isXsDevice={isXsDevice}>
         <LogoText>ZURÜCK</LogoText>
       </LogoContainer>
       <OptionsContainer>
+        
+        { currentUser ? 
+          (
+            <OptionLink as='div' onClick={() => auth.signOut()}>
+              { !isMobile
+              ? <span className='sign-salute'>Welcome, {currentUser.displayName}!</span>
+              : null
+              }
+              <IoPerson size={30} className='navbar-icon' />
+            </OptionLink>
+          ) : (
+            <OptionLink to='/signin'>
+              <IoPersonOutline size={30} className='navbar-icon' />
+            </OptionLink>
+          )}
         <OptionLink to='/wishlist'>
           { wishlistItemCount > 0
             ? (<div>
@@ -58,26 +63,13 @@ const HeaderMobile = ({ hidden, currentUser, collections, isLoading, isXsDevice,
           }
             
         </OptionLink>
-        { currentUser ? 
-          (
-            <OptionLink as='div' onClick={() => auth.signOut()}>
-              <IoPerson size={30} className='navbar-icon' />
-            </OptionLink>
-          ) : (
-            <OptionLink to='/signin'>
-              <IoPersonOutline size={30} className='navbar-icon' />
-            </OptionLink>
-          )}
-        <OptionLink to='/checkout'>
-          <CartIcon mobile={true} isXsDevice={isXsDevice} />
+        <OptionLink to={`${isMobile ? "/checkout" : location.pathname }`}>
+          <CartIcon mobile={isMobile} isXsDevice={isXsDevice} onClick={() => toggleCartHidden()} />
         </OptionLink>
       </OptionsContainer>
-      <SlideNavBar open={drawerOpen}>    
-        {isLoading
-          ? 'Loading...'
-          : <SlideMenu open={drawerOpen} />
-        }
-      </SlideNavBar>
+      {hidden
+      ? null
+      : <CartDropdown />}
     </HeaderContainer>
   )
 };
@@ -90,6 +82,8 @@ const mapStateToProps = createStructuredSelector({
   wishlistItemCount: selectWishlistItemsCount
 });
 
-export default connect(mapStateToProps)(HeaderMobile);
+const mapDispatchToProps = dispatch => ({
+  toggleCartHidden: () => dispatch(toggleCartHidden())
+});
 
-// onClick={toggleDrawer('drawerOpen', false)}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderMobile));

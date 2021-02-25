@@ -11,6 +11,7 @@ export const HeaderContainer = styled.div`
   margin-bottom: 25px;
   padding: 10px 10px 0 10px;
   background-color: white;
+  z-index: 10;
 `;
 
 export const OptionsContainer = styled.div`

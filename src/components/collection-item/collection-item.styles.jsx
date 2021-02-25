@@ -1,10 +1,6 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 import CustomButton from '../custom-button/custom-button.component';
-
-const handleHover = () => {
-  let isHovered = true;
-}
 
 export const CollectionItemContainer = styled.div`
   width: 330px;

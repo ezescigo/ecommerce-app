@@ -4,10 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import EmblaCarousel from "../slider-carousel/slider-carousel.component";
 
-import image1 from '../../assets/142906604_321371755923457_6738979074385647212_n.jpg';
-import image2 from '../../assets/146905055_1321793268220625_666729704345394529_n.jpg';
-
-import { DirectoryContainer, BackgroundImage } from './directory.styles';
+import { DirectoryContainer, ShopNowButton } from './directory.styles';
 
 import { selectDirectorySection } from '../../redux/directory/directory.selectors';
 
@@ -17,6 +14,7 @@ const slides = Array.from(Array(SLIDE_COUNT).keys());
 const Directory = ({ sections }) => {
   return (
     <DirectoryContainer>
+      <ShopNowButton to='/shop'>SHOP NOW</ShopNowButton>
       <EmblaCarousel slides={slides}  sections={sections} />
     </DirectoryContainer>
 )};
