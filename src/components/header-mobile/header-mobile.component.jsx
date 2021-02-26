@@ -22,12 +22,25 @@ import { LogoContainer, LogoText } from '../header/header.styles';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
+import {useSpring, useTransition, animated, config} from 'react-spring';
+
+
 const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
 
-  const getUserFirstName = () => {
-    const userFirstName = currentUser.displayName.replace(/ .*/,'');
-    return userFirstName;
-  }
+  const transitions = useTransition(!hidden, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    });
+
+  const fadeStyles = useSpring({
+    config: { ...config.stiff },
+    from: { opacity: 0, transform: "translateY(-200px)" },
+    to: {
+      opacity: !hidden ? 1 : 0,
+      transform: hidden ? "translateY(-200px)" : "translateY(0px)"
+    }
+  });
 
   return(
     <HeaderContainer>
@@ -65,9 +78,9 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
           <CartIcon mobile={isMobile} isXsDevice={isXsDevice} onClick={() => toggleCartHidden()} />
         </OptionLink>
       </OptionsContainer>
-      {hidden
-      ? null
-      : <CartDropdown hidden={hidden} />}
+      <animated.div style={fadeStyles}>
+        <CartDropdown hidden={hidden} />
+      </animated.div>
     </HeaderContainer>
   )
 };

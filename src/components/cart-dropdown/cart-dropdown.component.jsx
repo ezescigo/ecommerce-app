@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { withRouter } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const CartDropdown = ({ hidden, toggleCartHidden }) => {
   useOnClickOutside(node, () => toggleCartHidden());
 
   return (
-    <CartDropdownContainer hidden={hidden}>
+    <CartDropdownContainer>
       <CheckOut closeCheckOut={() => toggleCartHidden()} />
     </CartDropdownContainer>
   )
