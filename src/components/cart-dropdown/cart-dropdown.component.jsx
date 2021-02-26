@@ -13,13 +13,13 @@ import { CSSTransition } from 'react-transition-group';
 import CheckOut from '../checkout/checkout.component';
 import { CartDropdownContainer } from './cart-dropdown.styles';
 
-const CartDropdown = ({ hidden, toggleCartHidden }) => {
+const CartDropdown = ({ toggleCartHidden, history }) => {
   const node = useRef();
   useOnClickOutside(node, () => toggleCartHidden());
 
   return (
     <CartDropdownContainer>
-      <CheckOut closeCheckOut={() => toggleCartHidden()} />
+      <CheckOut isDropdown={true} closeCheckOut={() => toggleCartHidden()} goToCheckOut={() => history.push('/checkout')} />
     </CartDropdownContainer>
   )
 };

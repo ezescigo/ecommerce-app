@@ -91,7 +91,7 @@ export const NavIcon = styled.span`
 `;
 
 export const SlideNavBar = styled.nav`
-  width: 100%;
+  width: 300px;
   height: 100vh;
   padding-top: 75px;
   display: flex;
@@ -102,9 +102,8 @@ export const SlideNavBar = styled.nav`
   text-align: left;
   top: 0;
   left: 0;
-  transition: transform 0.3s ${PARAMS.ease};
-  transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
-  background-color: rgba(91, 110, 106, 0.85);
+  background-color: rgb(41, 43, 42);
   opacity: 1;
   z-index: 10;
+  border-radius: 8px;
 `

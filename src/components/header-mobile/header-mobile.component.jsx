@@ -27,18 +27,19 @@ import {useSpring, useTransition, animated, config} from 'react-spring';
 
 const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
 
-  const transitions = useTransition(!hidden, null, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+  const slide = useTransition(!hidden, null, {
+    from: { opacity: 0, transform: "translateY(0px)" },
+    enter: { opacity: 1, transform: "translateY(0px)" },
+    leave: { opacity: 0, transform: "translateY(-100px)" },
     });
 
   const fadeStyles = useSpring({
     config: { ...config.stiff },
-    from: { opacity: 0, transform: "translateY(-200px)" },
+    from: { zIndex: -50, opacity: 0, transform: "translateY(-100px)" },
     to: {
       opacity: !hidden ? 1 : 0,
-      transform: hidden ? "translateY(-200px)" : "translateY(0px)"
+      transform: hidden ? "translateY(-100px)" : "translateY(0px)",
+      zIndex: hidden ? -50 : 30
     }
   });
 
@@ -68,7 +69,6 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
           { wishlistItemCount > 0
             ? (<div>
                 <AiFillHeart size={30} className='navbar-icon' />
-                <span className='item-count'>{wishlistItemCount}</span>
               </div>)
             : <AiOutlineHeart size={30} className='navbar-icon' />
           }
@@ -78,9 +78,14 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
           <CartIcon mobile={isMobile} isXsDevice={isXsDevice} onClick={() => toggleCartHidden()} />
         </OptionLink>
       </OptionsContainer>
-      <animated.div style={fadeStyles}>
-        <CartDropdown hidden={hidden} />
-      </animated.div>
+      {slide.map(
+        ({ item, props, key }) =>
+        item && (
+          <animated.div style={fadeStyles}>
+            <CartDropdown hidden={hidden} />
+          </animated.div>)
+      )}
+      
     </HeaderContainer>
   )
 };

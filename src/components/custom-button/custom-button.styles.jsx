@@ -33,6 +33,12 @@ const invertedButtonStyles = css`
   }
 `;
 
+const getButtonSize = props => {
+  if (props.large) {
+    return css`width: 100%;`;
+  }
+}
+
 const getButtonStyles = props => {
   if (props.isGoogleSignIn) {
     return googleSignInStyles;
@@ -43,7 +49,6 @@ const getButtonStyles = props => {
 
 export const CustomButtonContainer = styled.button`
   min-width: 130px;
-  width: auto;
   height: 50px;
   letter-spacing: 0.5px;
   line-height: 50px;
@@ -61,4 +66,5 @@ export const CustomButtonContainer = styled.button`
   transition: all 0.2s ease-in-out;
 
   ${getButtonStyles};
+  ${getButtonSize};
 `;

@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import CheckOutItem from '../../components/checkout-item/checkout-item.component';
+import CustomButton from '../custom-button/custom-button.component';
+import CheckOutItem from '../checkout-item/checkout-item.component';
 import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';
 import { RiShoppingCartFill } from 'react-icons/ri';
 
@@ -10,7 +11,7 @@ import { selectCartItemsCount, selectCartItems, selectCartTotal } from '../../re
 
 import './checkout.styles.scss';
 
-const CheckOut = ({ itemCount, cartItems, total, closeCheckOut }) => {
+const CheckOut = ({ isDropdown, itemCount, cartItems, total, closeCheckOut, goToCheckOut }) => {
 
   return(
     <React.Fragment>
@@ -19,7 +20,7 @@ const CheckOut = ({ itemCount, cartItems, total, closeCheckOut }) => {
           <RiShoppingCartFill size={30} className='shopping-icon' />
         </div>
         <div className='checkout-header-title'>
-          <span>SHOPPING BAG ({itemCount})</span>
+          <span>SHOPPING CART ({itemCount})</span>
         </div>
         <div className='exit-button'>
           <span onClick={() => closeCheckOut()}>&#x2716;</span>
@@ -45,7 +46,9 @@ const CheckOut = ({ itemCount, cartItems, total, closeCheckOut }) => {
           <span className='total-price'>${total}</span>
         </div>
         <div className='checkout-button-container'>
-          <StripeCheckoutButton price={total} />
+          {isDropdown
+          ? <CustomButton large onClick={() => goToCheckOut()}>Go To Checkout</CustomButton>
+          : <StripeCheckoutButton price={total} />}
         </div>
         <div className='test-warning'>
           *test credit card for payments*
