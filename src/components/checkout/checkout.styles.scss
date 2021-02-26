@@ -118,7 +118,7 @@
   }
 };
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   .checkout-main {
     width: 410px;
     display: flex;

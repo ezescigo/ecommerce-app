@@ -23,13 +23,14 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
 import {useSpring, useTransition, animated, config} from 'react-spring';
+import { RiScalesLine } from 'react-icons/ri';
 
 
 const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
 
   const slide = useTransition(!hidden, null, {
-    from: { opacity: 0, transform: "translateY(0px)" },
-    enter: { opacity: 1, transform: "translateY(0px)" },
+    from: { opacity: 0, transform: "translateY(0px)", transform: "scale(0)" },
+    enter: { opacity: 1, transform: "translateY(0px)", transform: "scale(1)" },
     leave: { opacity: 0, transform: "translateY(-100px)" },
     });
 
@@ -39,7 +40,7 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
     to: {
       opacity: !hidden ? 1 : 0,
       transform: hidden ? "translateY(-100px)" : "translateY(0px)",
-      zIndex: hidden ? -50 : 30
+      zIndex: hidden ? -50 : 30,
     }
   });
 
