@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 export const useOnClickOutside = (ref, handler) => {
@@ -39,3 +39,11 @@ export default function useBreakpoints() {
   if (breakpoints.isLg) breakpoints.active = "lg";
   return breakpoints;
 };
+
+export function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}

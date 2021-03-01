@@ -2,7 +2,7 @@ import styled, {keyframes} from 'styled-components';
 
 export const CartDropdownContainer = styled.div`
   position: absolute;
-  top: 60px;
+  top: 20px;
   right: 30px;
   width: 400px;
   height: 85vh;

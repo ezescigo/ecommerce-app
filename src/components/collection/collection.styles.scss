@@ -1,7 +1,11 @@
 .collection-page {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
+  background-color: rgb(32, 31, 31);
+  padding-top: 200px;
+  padding-bottom: 50px;
 
   .title {
     font-size: 38px;
@@ -10,7 +14,7 @@
 
   .items {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 30px;
 
     & .collection-item {

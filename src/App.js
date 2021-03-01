@@ -11,6 +11,7 @@ import ShopPage from './pages/shop/shop.component';
 import WishlistPage from './pages/wishlist/wishlist.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckOutPage from './pages/checkout-page/checkout-page.component';
+import Footer from './components/footer/footer.component';
 import { ToastContainer } from "react-toastify";
 
 import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
@@ -72,6 +73,7 @@ class App extends React.Component {
             } 
           />
         </Switch>
+        <Footer />
       </div>
     )
   } 

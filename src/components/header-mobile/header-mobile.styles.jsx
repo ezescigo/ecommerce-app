@@ -27,6 +27,30 @@ export const HeaderContainer = styled.div`
   box-shadow: rgba(50, 50, 93, 0.3) 0px 50px 100px -20px, rgba(0, 0, 0, 0.4) 0px 30px 60px -30px, rgba(10, 37, 64, 0.45) 0px -2px 6px 0px inset;
 `;
 
+export const LogoContainer = styled(Link)`
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-content: center;
+  text-align: center;
+  margin-left: 20px;
+  -webkit-text-stroke: 0.45px;
+  // or
+  -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
+  // or
+  text-shadow: #fff 0px 1px 1px;
+`;
+
+export const LogoText = styled.span`
+  margin: auto;
+  color: #5a5555 ;
+  font-family: 'Piazzola';
+  font-weight: bold;
+  text-shadow: 0.5px 0.5px 0.5px #4c5250, 1px 1px 1px grey; 
+  transition: all 0.5s ease;
+  font-size: ${({ isXsDevice }) => isXsDevice ? '18px' : '26px'};
+`;
+
 export const OptionsContainer = styled.div`
   display: inline-flex;
   justify-content: flex-end;
@@ -115,7 +139,5 @@ export const OptionLink = styled(Link)`
     transition: height 0.3s ease;
     -webkit-transition: height 0.3s ease; */
   }
-  }
-
-
+}
 `;

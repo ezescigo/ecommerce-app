@@ -4,7 +4,7 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
   // Search first item found in our array based on condition: existing id item.
   const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToAdd.id);
 
-  toast.success('Item added from Cart.');
+  toast.default('Item added from Cart.');
   // If the item already existis on the array: Return new array with each cartItem and add quantity on the new cartItem
   if (existingCartItem) {
     return cartItems.map(cartItem => 

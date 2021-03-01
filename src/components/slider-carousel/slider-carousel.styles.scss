@@ -1,9 +1,11 @@
 .embla {
   position: relative;
-  background-color: #f7f7f7;
+  background-color: #000000;
   padding: 0px;
+  margin-top: 0;
   margin-left: auto;
   margin-right: auto;
+  top: 0;
 }
 
 .embla__viewport {
@@ -29,13 +31,11 @@
   -webkit-touch-callout: none;
   -khtml-user-select: none;
   -webkit-tap-highlight-color: transparent;
-  margin-left: -10px;
 }
 
 .embla__slide {
   position: relative;
   min-width: 100%;
-  padding-left: 10px;
 }
 
 .embla__slide__inner {
@@ -49,9 +49,10 @@
   display: block;
   top: 50%;
   left: 50%;
+  height: auto;
   width: auto;
-  min-height: 100%;
-  min-width: 100%;
+  object-fit: cover;
+  // min-height: 100%;
   max-width: 100vw;
   transform: translate(-50%, -50%);
   box-shadow: 0px 0px 40px #ccc;

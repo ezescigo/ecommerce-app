@@ -16,9 +16,8 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 import HeaderSideBar from '../header-sidebar/header-sidebar.component';
-import { HeaderContainer, OptionsContainer, OptionLink } from './header-mobile.styles.jsx';
-import { LogoContainer, LogoText } from '../header/header.styles';
-
+import { HeaderContainer, OptionsContainer, OptionLink, LogoContainer, LogoText } from './header-mobile.styles.jsx';
+import NavbarMenu from '../navbar-menu/navbar-menu.component';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
@@ -46,7 +45,10 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
 
   return(
     <HeaderContainer>
-      <HeaderSideBar isLoading={isLoading} />
+      { isMobile
+      ? <HeaderSideBar isLoading={isLoading} />
+      : null }
+      
       <LogoContainer to='/' isXsDevice={isXsDevice}>
         <LogoText>ZURÜCK</LogoText>
       </LogoContainer>
@@ -86,7 +88,6 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
             <CartDropdown hidden={hidden} />
           </animated.div>)
       )}
-      
     </HeaderContainer>
   )
 };

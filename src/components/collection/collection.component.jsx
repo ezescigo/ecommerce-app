@@ -16,7 +16,6 @@ const CollectionPage = ({ collection, wishlist }) => {
 
   return (
     <div className='collection-page'>
-      <h2 className='title'>{ title }</h2>
       <div className='items'>
         {items.map(item => {
           return wishlist.find(wishlistItem => wishlistItem.id === item.id)

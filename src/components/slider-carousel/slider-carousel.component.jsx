@@ -3,11 +3,12 @@ import { DotButton, PrevButton, NextButton } from "./slider-carousel-buttons";
 import { useRecursiveTimeout } from "./useRecursiveTimeout";
 import { useEmblaCarousel } from "embla-carousel/react";
 import "./slider-carousel.styles.scss";
-import media1 from '../../assets/we_are_open2.jpg';
-import media2 from '../../assets/home3.jpeg';
-import media3 from '../../assets/home4.jpeg';
+import media1 from '../../assets/chivas-bg.jpg';
+import media2 from '../../assets/elenemigo-bg.jpg';
+import media3 from '../../assets/heineken-bg.jpg';
+import media4 from '../../assets/wines-bg.jpg';
 
-const AUTOPLAY_INTERVAL = 4000;
+const AUTOPLAY_INTERVAL = 6000;
 
 const EmblaCarousel = ({ slides, sections }) => {
   const [viewportRef, embla] = useEmblaCarousel({ loop: true });
@@ -16,7 +17,7 @@ const EmblaCarousel = ({ slides, sections }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
-  let media = [media1, media2, media3];
+  let media = [media1, media2, media3, media4];
   // sections.map(section => media.push(section.imageUrl));
   // console.log(media);
   const mediaByIndex = index => media[index % media.length];

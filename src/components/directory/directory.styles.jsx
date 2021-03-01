@@ -5,6 +5,9 @@ export const DirectoryContainer = styled.div`
   width: 100vw;
   height: 100vh;
   margin-top: 75px;
+  @media (min-width: 600px) {
+    margin-top: 0px;
+  }
 `
 export const BackgroundImage = styled.div`
   width: 100%;
@@ -14,18 +17,26 @@ export const BackgroundImage = styled.div`
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `
 export const ShopNowButton = styled(Link)`
-  position: relative;
-  background-color: whitesmoke;
-  color: #6b6868;
-  text-shadow: 1px 3px 3px #a09898;
+  position: absolute;
+  display:inline-block;
+  margin: auto;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  height: 80px;
+  width: 180px;
+  text-align: center;
+  background-color: transparent;
+  color: #e9d7d7;
   font-size: 22px;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
   border-radius: 8px;
-  box-shadow: rgba(255, 255, 255, 0.76) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-  padding: 20px 40px;
-  top: 50%;
-  margin: 0 auto;
+  border: 1px solid white;
+  padding: 25px 10px;
+  top: 70%;
+  
   z-index: 5;
   transition: all 0.3s ease-in-out;
 

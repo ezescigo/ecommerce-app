@@ -22,7 +22,10 @@ const Header = ( { currentUser, hidden, dispatch } ) => {
   
   return (
     <nav>
-     <HeaderMobile isXsDevice={isXsDevice} isMobile={isMobile} />
+      {isMobile
+      ? <HeaderMobile isXsDevice={isXsDevice} isMobile={true} />
+      : <HeaderDesktop isXsDevice={false} isMobile={false} />
+      }
     </nav>
   );
 };
