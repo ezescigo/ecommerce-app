@@ -21,4 +21,26 @@ p {
 .wrapper {
   display: block;
   /* margin-top: 75px; */
+};
+
+/* https://fkhadra.github.io/react-toastify/how-to-style/ */
+
+.toast-container {
+  background-color: rgb(58, 57, 57);
+}
+
+.Toastify__toast--success {
+  background: #303030 !important;
+}
+.Toastify__toast--error {
+  background: #FCA7A9 !important;
+}
+.toastBody {
+  font-family: "Atlas Grotesk Web", Arial, Helvetica, sans-serif;
+  color: #10171D; /* #10171D */
+  font-size: 0.875rem !important;
+  background: white;
+}
+.toastProgress {
+  background: #333F48 !important;
 }

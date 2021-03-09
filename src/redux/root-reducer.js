@@ -12,7 +12,7 @@ import appReducer from './app/app.reducer';
 const persistConfig = {
   key: 'root',
   storage: storageSession,
-  whitelist: ['cart', 'collections', 'wishlist']
+  whitelist: ['cart', 'wishlist']
 }
 
 const rootReducer = combineReducers({

@@ -85,6 +85,7 @@ export const OptionsPanel = styled.div`
   width: auto;
   height: 100%;
   margin-right: 0;
+  padding-right: 50px;
   width: 350px;
   /* margin-left: auto; */
   display: flex;
@@ -113,6 +114,7 @@ export const OptionLink = styled(Link)`
   align-items: center;
   color: white;
   transition: all 0.3s ease-in-out;
+  z-index: 30;
 
   &:hover {
     opacity: 0.8;
@@ -132,6 +134,7 @@ export const OptionLink = styled(Link)`
 export const NavbarContainer = styled.div`
   width: 75%;
   min-width: 480px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -156,9 +159,14 @@ export const NavbarItem = styled.div`
   // or
   text-shadow: #646161 0px 0.5px 0.5px;
 
+  :nth-child(2) {
+    flex: 1;
+    /* max-width: 140px; */
+  }
+
   :nth-child(3) {
-    flex: 2;
-    max-width: 140px;
+    flex: 1;
+    /* max-width: 140px; */
   }
 
   &::after {

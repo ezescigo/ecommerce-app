@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: rgb(32, 31, 31);
+  background-color: rgb(243, 238, 238);
   padding-top: 200px;
   padding-bottom: 50px;
 
@@ -15,10 +15,10 @@
   .items {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 30px;
+    grid-gap: 60px;
 
     & .collection-item {
-      margin-bottom: 30px;
+      margin-bottom: 60px;
     }
   }
 }

@@ -12,24 +12,27 @@ import CollectionItem from '../collection-item/collection-item.component';
 import './collection.styles.scss';
 
 const CollectionPage = ({ collection, wishlist }) => {
-  const { title, items } = collection;
+
+  console.log(collection);
 
   return (
     <div className='collection-page'>
       <div className='items'>
-        {items.map(item => {
+        {collection[0].categories.map(category => category.items.map(item => {
           return wishlist.find(wishlistItem => wishlistItem.id === item.id)
           ? <CollectionItem key={item.id} item={item} fav />
           : <CollectionItem key={item.id} item={item} />        
           }
-        )}
+        ))}
       </div>
     </div>
   )
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state),
+const mapStateToProps = (state, ownProps) => 
+({
+  collection: selectCollection(
+    ownProps.match.params.sectionName)(state),
   wishlist: selectWishlistItems(state),
 });
 

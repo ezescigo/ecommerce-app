@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
+import { selectDirectorySections } from '../../redux/directory/directory.selectors';
 import { CSSTransition } from 'react-transition-group';
 import SlideMenuItem from '../slide-menu-item/slide-menu-item.component';
 
@@ -10,12 +10,13 @@ import { IoIosArrowBack } from 'react-icons/io';
 
 import './slide-menu.styles.scss';
 
-const SlideMenu = ({ collections }) => {
+const SlideMenu = ({ sections }) => {
   const [activeMenu, setActiveMenu] = useState('main');
 
   const handleOnClick = (goToMenu) => {
     goToMenu && setActiveMenu(goToMenu)
   };
+  
 
   return (
     <div className='slide-menu'>
@@ -26,7 +27,7 @@ const SlideMenu = ({ collections }) => {
         unmountOnExit>
         <div className='menu'>
         
-          {collections.map(({id, title}) =>
+          {sections.map(({id, title}) =>
             <SlideMenuItem key={id} onClick={() => handleOnClick(title)} type='category'>
               {title}
             </SlideMenuItem> 
@@ -34,7 +35,7 @@ const SlideMenu = ({ collections }) => {
         </div>
       </CSSTransition>
 
-      { collections.map(({ id, title, items }) => (
+      { sections.map(({ id, title, categories }) => (
         <CSSTransition
           key={id}
           in={activeMenu === `${title}`}
@@ -49,9 +50,9 @@ const SlideMenu = ({ collections }) => {
               <SlideMenuItem type='category-title'>{title}</SlideMenuItem>
             </div>
             
-            {items.map(item =>  
-              <SlideMenuItem key={item.id} type='item'>
-              { item.name }
+            {categories.map(category =>  
+              <SlideMenuItem key={category.id} type='item'>
+              { category.title }
               </SlideMenuItem>)}
 
           </div>
@@ -63,7 +64,7 @@ const SlideMenu = ({ collections }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  collections: selectCollectionsForPreview,
+  sections: selectDirectorySections,
 });
 
 export default connect(mapStateToProps)(SlideMenu);

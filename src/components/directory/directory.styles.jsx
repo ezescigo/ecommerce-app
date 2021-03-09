@@ -15,6 +15,9 @@ export const BackgroundImage = styled.div`
   background-size: cover;
   background-position: center;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+  @media (max-width: 1100px) {
+    object-fit: fill;
+  }
 `
 export const ShopNowButton = styled(Link)`
   position: absolute;

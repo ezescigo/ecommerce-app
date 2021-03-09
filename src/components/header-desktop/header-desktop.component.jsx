@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useRouteMatch } from 'react-router-dom';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectDirectorySections } from '../../redux/directory/directory.selectors';
 import { selectIsCollectionFetching, selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
 import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
 import { auth } from '../../firebase/firebase.utils';
@@ -17,11 +18,83 @@ import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
-const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, collections, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
+const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
+
+  const sections = [
+      {
+        title: "Wines",
+        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
+        id: 1,
+        linkUrl: "shop/wines",
+        categories: [
+          {
+            title: "Red",
+            id: 11,
+            linkUrl: "shop/wines/red-wines"
+          },
+          {
+            title: "White",
+            id: 12,
+            linkUrl: "shop/wines/white-wines"
+          },
+          {
+            title: "Sparkling",
+            id: 13,
+            linkUrl: "shop/wines/sparkling-wines"
+          }
+        ],
+      },
+      {
+        title: "Spirits",
+        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
+        id: 2,
+        linkUrl: "shop/spirits",
+        categories: [
+          {
+            title: "Whisky",
+            id: 21,
+            linkUrl: "shop/spirits/whisky"
+          },
+          {
+            title: "Aperitives",
+            id: 22,
+            linkUrl: "shop/spirits/aperitives"
+          },
+          {
+            title: "Spirits",
+            id: 23,
+            linkUrl: "shop/spirits/spirits"
+          }
+        ],
+      },
+      {
+        title: "beers",
+        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
+        id: 3,
+        linkUrl: "shop/beers",
+        categories: [
+          { title: "beers", id: 31, linkUrl: "shop/beers/beers" },
+          { title: "accesories", id: 32, linkUrl: "shop/beers/accesories"}
+        ]
+      },
+      {
+        title: "gourmet",
+        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
+        id: 4,
+        linkUrl: "shop/gourmet",
+        categories: [
+          { title: "Dressings", id: 41, linkUrl: "shop/gourmet/dressings" },
+          { title: "Spreads", id: 42, linkUrl: "shop/gourmet/spreads" },
+        ]
+      } 
+    ]
+
 
   const [isActive, setIsActive] = useState('');
   const prevActive = usePrevious(isActive);
   const [subMenuHidden, setHideSubMenu] = useState(true);
+
+  const { url } = useRouteMatch();
 
   const slide = useTransition(!hidden, null, {
     from: { opacity: 0, transform: "translateY(0px)", transform: "scale(0)" },
@@ -29,7 +102,7 @@ const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, collections, 
     leave: { opacity: 0, transform: "translateY(-100px)" },
     });
 
-  const fadeStyles = useSpring({
+  const fadeStylesDropdown = useSpring({
     config: { ...config.stiff },
     from: { zIndex: -50, opacity: 0, transform: "translateY(-100px)" },
     to: {
@@ -51,18 +124,30 @@ const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, collections, 
     to: {
       opacity: !subMenuHidden ? 1 : 0,
     }
-  });
+  }, [subMenuHidden]);
+
+  const fadeStylesItem = useSpring({
+    config: { ...config.gentle },
+    from: { opacity: 0 },
+    to: {
+      opacity: isActive ? 1 : 0,
+    }
+  }, [isActive]);
 
   useEffect(() => {
     isActive === ''
     ? setHideSubMenu(true)
     : setHideSubMenu(false)
+
+
   }, [isActive]);
 
   return(
-    <HeaderContainer styled={location.pathname === '/' ? false : true}>
+    <HeaderContainer 
+      styled={location.pathname === '/' ? false : true}
+      onMouseLeave={() => setIsActive('')}>
       <OptionsContainerTop>
-      <OptionsPanel />
+        <OptionsPanel />
         <LogoContainer to='/' isXsDevice={isXsDevice}>
           <LogoText>ZURÜCK</LogoText>
         </LogoContainer>
@@ -96,29 +181,41 @@ const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, collections, 
           </OptionLink>
         </OptionsPanel>
       </OptionsContainerTop>
-      {slide.map(
-        ({ item, props, key }) =>
-        item && (
-          <animated.div style={fadeStyles}>
-            <CartDropdown hidden={hidden} />
-          </animated.div>)
-      )}
-      <OptionsContainer onMouseEnter={() => setIsActive(isActive || prevActive)} onMouseLeave={() => setIsActive('')}>
+      <animated.div style={fadeStylesDropdown}>
+        <CartDropdown hidden={hidden} />
+      </animated.div>
+      <OptionsContainer 
+        onMouseEnter={() => setIsActive(isActive || prevActive)}
+        onMouseLeave={() => setIsActive('')}
+      >
         <NavbarContainer>
-          { collections.map(collection =>
-            <NavbarItem onMouseEnter={() => {setIsActive(collection.id)}} onMouseLeave={() => setIsActive('')} onClick={() => history.push(`/shop/${collection.routeName}`)}>{collection.title}</NavbarItem>
+          { sections.map(section =>
+            <NavbarItem 
+              onMouseEnter={() => {setIsActive(section.title)}}
+              onClick={() => history.push(`/${section.linkUrl}`)}
+            >
+              {section.title}
+            </NavbarItem>
           )}
         </NavbarContainer>
       </OptionsContainer>
       <animated.div style={fadeStylesMenu}>
-        <OptionsContainer onMouseEnter={() => setIsActive(isActive || prevActive)} onMouseLeave={() => setIsActive('')}>
-        {collections.map(collection => 
-          collection.id === isActive
-          ? collection.items.map(item => 
-            <NavbarMenuItem  key={item.id} type='item'>
-              { item.name }
-            </NavbarMenuItem>)
-          : null)}
+        <OptionsContainer 
+          onMouseEnter={() => setIsActive(isActive || prevActive)}
+        >
+          {sections.map(section => 
+            section.title === isActive &&
+              section.categories.map(category => 
+                <animated.div style={fadeStylesItem}>
+                  <NavbarMenuItem
+                  key={category.id}
+                  type='item'
+                  onClick={() => history.push(`/${category.linkUrl}`)}>
+                    { category.title }
+                  </NavbarMenuItem>
+                </animated.div>)
+            )
+          }
         </OptionsContainer>
       </animated.div>
     </HeaderContainer>
@@ -129,7 +226,7 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden,
   isLoading: selectIsCollectionFetching,
-  collections: selectCollectionsForPreview,
+  // sections: selectDirectorySections,
   wishlistItemCount: selectWishlistItemsCount
 });
 

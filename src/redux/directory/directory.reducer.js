@@ -1,36 +1,30 @@
+import DirectoryActionTypes from './directory.type';
+
 const INITIAL_STATE = {
-  sections: [
-    {
-      title: "belts",
-      imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
-      id: 2,
-      linkUrl: "shop/belts",
-    },
-    {
-      title: "wallets",
-      imageUrl: "https://drive.google.com/uc?export=view&id=1EXX4Jk-Vu0k2bJz4IK36weTP7t7Nv_Vl",
-      id: 3,
-      linkUrl: "shop/wallets",
-    },
-    {
-      title: "jackets",
-      imageUrl: "https://drive.google.com/uc?export=view&id=1V2Zsfrpwx66B-wCDRYRlI2q4X7fZFm9y",
-      size: "large",
-      id: 4,
-      linkUrl: "shop/jackets",
-    },
-    {
-      title: "dresses",
-      imageUrl: "https://drive.google.com/uc?export=view&id=1A1EYXPBUIAEPWzx-_gNUv8z91Z1YlbQ8",
-      size: "large",
-      id: 5,
-      linkUrl: "shop/dresses",
-    }
-  ]
+  sections: null,
+  isFetching: true,
+  errorMessage: undefined
 };
 
 const directoryReducer = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
+    case DirectoryActionTypes.FETCH_DIRECTORY_START:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case DirectoryActionTypes.FETCH_DIRECTORY_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        sections: action.payload
+      };
+    case DirectoryActionTypes.FETCH_DIRECTORY_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: action.payload
+      };
     default:
       return state;
   }

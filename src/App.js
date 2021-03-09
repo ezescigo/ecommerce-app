@@ -12,12 +12,15 @@ import WishlistPage from './pages/wishlist/wishlist.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckOutPage from './pages/checkout-page/checkout-page.component';
 import Footer from './components/footer/footer.component';
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Slide } from "react-toastify";
 
 import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { fetchCollectionsStartAsync } from './redux/collections/collections.actions';
+import { fetchDirectoryStartAsync } from './redux/directory/directory.actions';
+import { selectIsDirectoryFetching } from './redux/directory/directory.selectors';
+
+import { SpinnerOverlay, SpinnerContainer } from './components/with-spinner/with-spinner.styles';
 
 import { selectCollectionsForPreview } from './redux/collections/collections.selectors';
 
@@ -26,16 +29,15 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, collectionsArray, fetchCollectionsStartAsync } = this.props;
-    fetchCollectionsStartAsync();
+    const { setCurrentUser, } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-        // check if signed in
+      // check if signed in
       if (userAuth) {
         // Get back the userRef obj from our createUserProfileDocument method passing userAuth. If it exists in our db, will bring the data, if not will create a new one.
         const userRef = await createUserProfileDocument(userAuth);
         // subscribe/listen to any changes in userRef data
         userRef.onSnapshot(snapShot => {
-          setCurrentUser({ 
+          setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
           });
@@ -43,8 +45,6 @@ class App extends React.Component {
       } else {
         setCurrentUser(userAuth);
       }
-    
-      // addCollectionAndDocuments('collections', collectionsArray);
     });
   }
 
@@ -53,40 +53,56 @@ class App extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div className='wrapper'>
-        <Header />
-        <ToastContainer autoClose={3000} />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route path='/wishlist' component={WishlistPage} />
-          <Route exact path='/checkout' component={CheckOutPage} />
-          <Route 
-            exact path='/signin' 
-            render={() => 
-              this.props.currentUser ? (
-                <Redirect to='/' />
-              ) : (
-                <SignInAndSignUpPage />
-              )
-            } 
-          />
-        </Switch>
+        {this.props.isLoading
+          ? (<SpinnerOverlay>
+            <SpinnerContainer />
+          </SpinnerOverlay>)
+          : (<React.Fragment>
+            <Header />
+            <ToastContainer
+              autoClose={3000}
+              className='toast-container'
+              progressClassName='toastProgress'
+              bodyClassName='toastBody'
+              position='bottom-center'
+              transition={Slide}
+              newestOnTop
+              draggable
+              pauseOnHover />
+            <Switch>
+              <Route exact path='/' component={HomePage} />
+              <Route path='/shop' component={ShopPage} />
+              <Route path='/wishlist' component={WishlistPage} />
+              <Route exact path='/checkout' component={CheckOutPage} />
+              <Route
+                exact path='/signin'
+                render={() =>
+                  this.props.currentUser ? (
+                    <Redirect to='/' />
+                  ) : (
+                    <SignInAndSignUpPage />
+                  )
+                }
+              />
+            </Switch>
+          </React.Fragment>
+          )}
         <Footer />
       </div>
+
     )
-  } 
+  }
 }
 
 const mapStateToProps = createStructuredSelector({
+  isLoading: selectIsDirectoryFetching,
   currentUser: selectCurrentUser,
-  collectionsArray: selectCollectionsForPreview
 });
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
 
 export default connect(

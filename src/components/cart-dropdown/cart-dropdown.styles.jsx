@@ -15,7 +15,7 @@ export const CartDropdownContainer = styled.div`
   border: 1px solid rgba(10, 34, 30, 0.466);
   border-radius: 10px;
   padding: 0;
-  background-color: whitesmoke;
-  z-index: 20;
+  background-color: #ffffff;
+  z-index: -10;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 `;

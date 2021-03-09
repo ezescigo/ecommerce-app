@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import Directory from '../../components/directory/directory.component';
+import DirectoryContainer from '../../components/directory/directory.container';
 import { useEmblaCarousel } from 'embla-carousel/react'
 
 import { HomePageContainer } from './homepage.styles';
@@ -27,7 +27,7 @@ const HomePage = () => {
 
   return (
     <div>
-    <Directory />
+      <DirectoryContainer />
     </div>
   )};
 

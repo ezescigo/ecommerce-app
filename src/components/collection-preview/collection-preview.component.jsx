@@ -16,18 +16,19 @@ const slidesPerPageSettings = {
   desktop: 4,
 }
 
-const CollectionPreview = ({ title, items, wishlist }) => (
+const CollectionPreview = ({ title, categories, wishlist }) => (
   <div className='collection-preview'>
     <h1 className='title'>{title.toUpperCase()}</h1>
     <div className='preview'>
       <Slider
       slidesPerPageSettings={slidesPerPageSettings}>
-        {items
-          .map(item => {
+        {categories
+          .map(({ items }) => items.map(item => {
             return wishlist.find(wishlistItem => wishlistItem.id === item.id)
             ? <CollectionItem key={item.id} item={item} fav />
             : <CollectionItem key={item.id} item={item} />
             }
+          ) 
           )
         }
       </Slider>

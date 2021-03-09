@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { addItem } from '../../redux/cart/cart.actions';
+import { addItem, openCartDropdown } from '../../redux/cart/cart.actions';
 import { toggleWishlistItem, updateWishlist } from '../../redux/wishlist/wishlist.actions';
 
 import FavIcon from '../fav-icon/fav-icon.component';
@@ -10,10 +10,11 @@ import Undo from '../undo-toast/undo-toast.component';
 
 import { CollectionItemContainer, CollectionFooterContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
 
-const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
+const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist, openCartDropdown }) => {
   const { name, price, imageUrl, imageUrl2 } = item;
   const [isFav, setFav] = useState();
   const [isDisabled, setDisabled] = useState();
+  const [isHovered, setIsHovered] = useState(false);
   const firstUpdate = useRef(true);
   
   useLayoutEffect(() => {
@@ -28,7 +29,11 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
     setFav(currentIsFav => !currentIsFav);
   };
 
-  const handleOnClick = () => {
+  const handleOnHover = hover => {
+    setIsHovered(hover);
+  }
+
+  const handleOnClickFav = () => {
     if (isDisabled === true) {
       return ;
     } else {
@@ -45,15 +50,23 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist }) => {
     }
   };
 
+  const handleOnClickAdd = (item) => {
+    openCartDropdown();
+    addItem(item);
+  }
+
   return (
-  <CollectionItemContainer isFav={isFav} imageUrl={imageUrl} imageUrlAlt={imageUrl2}>
-    <BackgroundImage className='image' />
+  <CollectionItemContainer
+    isFav={isFav}
+    onMouseEnter={() => handleOnHover(true)}
+    onMouseLeave={() => handleOnHover(false)}>
+    <BackgroundImage imageUrl={imageUrl} className='image' />
     <CollectionFooterContainer>
       <NameContainer>{name}</NameContainer>
       <PriceContainer>${price}</PriceContainer>
     </CollectionFooterContainer>
-    <FavIcon className='fav-icon' isFav={isFav} onClick={handleOnClick} disabled={isDisabled}/>
-    <AddButton inverted onClick={() => addItem(item)}>Add to cart</AddButton>
+    <FavIcon show={isHovered} className='fav-icon' isFav={isFav} onClick={handleOnClickFav} disabled={isDisabled}/>
+    <AddButton inverted onClick={() => handleOnClickAdd(item)}>Add to cart</AddButton>
   </CollectionItemContainer>
 )};
 
@@ -61,6 +74,7 @@ const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item)),
   toggleFav: item => dispatch(toggleWishlistItem(item)),
   updateWishlist: () => dispatch(updateWishlist()),
+  openCartDropdown: () => dispatch(openCartDropdown())
 });
 
 export default connect(

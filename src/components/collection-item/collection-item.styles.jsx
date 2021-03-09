@@ -2,6 +2,20 @@ import styled from 'styled-components';
 
 import CustomButton from '../custom-button/custom-button.component';
 
+export const BackgroundImage = styled.div`
+  width: 100%;
+  height: 95%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+  transition: 0.5s ease;
+  background-image: url(${({ imageUrl }) => `${imageUrl}`});
+`;
+
 export const CollectionItemContainer = styled.div`
   width: 330px;
   display: flex;
@@ -9,25 +23,29 @@ export const CollectionItemContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
-  transition: 0.5s ease-in-out;
+  border-radius: 2px;
+  transition: all 0.5s ease-in-out;
+
 
   .fav-icon {
-    display: flex;
+    display: none;
   }
   .image {
-      background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+      background-image: ${({ imageUrl }) => `${imageUrl}`};
+      background-color: white;
   }
 
   &:hover {
-    .image {
-      background-image: ${props => props.imageUrlAlt ? `url(${props.imageUrlAlt})` : `url(${props.imageUrl})`}
-      }}
+    ${BackgroundImage} {
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;}
+
     button {
       display: flex;
     }
     .fav-icon {
       display: flex;
     }
+  }
 `;
 
 export const AddButton = styled(CustomButton)`
@@ -36,20 +54,6 @@ export const AddButton = styled(CustomButton)`
   position: absolute;
   top: 235px;
   display: none;
-`;
-
-export const BackgroundImage = styled.div`
-  width: 100%;
-  height: 95%;
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 5px;
-  
-  transition: 0.5s ease;
-
-  &:hover {
-    
-  }
 `;
 
 export const CollectionFooterContainer = styled.div`

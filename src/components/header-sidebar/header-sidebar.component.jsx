@@ -37,9 +37,7 @@ const HeaderSideBar = ({ isLoading, }) => {
           <NavIcon open={drawerOpen} />
         </NavButton>
       </NavContainer>
-      {slide.map(
-        ({ item, props, key }) =>
-        item && (
+
           <animated.div style={fadeStyles}>
             <SlideNavBar open={drawerOpen}>    
               {isLoading
@@ -47,9 +45,7 @@ const HeaderSideBar = ({ isLoading, }) => {
                 : <SlideMenu open={drawerOpen} />
               }
             </SlideNavBar>
-          </animated.div>)
-      )}
-
+          </animated.div>
   </React.Fragment>
   )
 };

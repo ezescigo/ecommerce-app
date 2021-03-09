@@ -74,20 +74,12 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
                 <AiFillHeart size={30} className='navbar-icon' />
               </div>)
             : <AiOutlineHeart size={30} className='navbar-icon' />
-          }
-            
+          }       
         </OptionLink>
         <OptionLink to={`${isMobile ? "/checkout" : location.pathname }`}>
           <CartIcon mobile={isMobile} isXsDevice={isXsDevice} onClick={() => toggleCartHidden()} />
         </OptionLink>
       </OptionsContainer>
-      {slide.map(
-        ({ item, props, key }) =>
-        item && (
-          <animated.div style={fadeStyles}>
-            <CartDropdown hidden={hidden} />
-          </animated.div>)
-      )}
     </HeaderContainer>
   )
 };

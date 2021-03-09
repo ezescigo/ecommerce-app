@@ -18,11 +18,21 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
       <Switch>
         <Route 
           exact path={`${match.path}`} 
-          component={CollectionsOverviewContainer}
+          render={(props) => (
+            <CollectionPageContainer {...props} />
+          )}
         />
         <Route 
-          path={`${match.path}/:collectionId`} 
-          component={CollectionPageContainer}
+          path={`${match.path}/:sectionName`} 
+          render={(props) => (
+            <CollectionPageContainer {...props} />
+          )}
+        />
+        <Route 
+          path={`${match.path}/:sectionName/:categoryName`} 
+          render={(props) => (
+            <CollectionPageContainer {...props} />
+          )}
         />
       </Switch>
     </div>
@@ -37,3 +47,11 @@ export default connect(
   null,
   mapDispatchToProps
 )(ShopPage);
+
+
+{/* <Route 
+path={`${match.path}/:sectionId/:categoryId`} 
+render={(props) => (
+  <CollectionPageContainer {...props} />
+)}
+/> */}
