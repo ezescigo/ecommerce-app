@@ -3,7 +3,7 @@ import CollectionsActionTypes from './collections.type';
 const INITIAL_STATE = {
   collections: null,
   isFetching: false,
-  errorMessage: undefined
+  errorMessage: undefined,
 };
 
 const collectionsReducer = (state = INITIAL_STATE, action) => {
@@ -17,7 +17,7 @@ const collectionsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        collections: action.payload
+        collections: { ...state.collections, [action.payload.category]: action.payload.collection }
       };
     case CollectionsActionTypes.FETCH_COLLECTIONS_FAILURE:
       return {

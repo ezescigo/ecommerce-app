@@ -17,19 +17,26 @@ import { ToastContainer, Slide } from "react-toastify";
 import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { fetchDirectoryStartAsync } from './redux/directory/directory.actions';
-import { selectIsDirectoryFetching } from './redux/directory/directory.selectors';
+import { fetchCategoriesStartAsync } from './redux/categories/categories.actions';
+import { selectIsCategoriesFetching, selectIsCategoriesLoaded } from './redux/categories/categories.selectors';
 
 import { SpinnerOverlay, SpinnerContainer } from './components/with-spinner/with-spinner.styles';
 
 import { selectCollectionsForPreview } from './redux/collections/collections.selectors';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   // eslint-disable-next-line no-undef
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, } = this.props;
+    const { setCurrentUser, isLoading, fetchCategoriesStartAsync } = this.props;
+    // if (this.props.categoriesLoaded = false) {
+    fetchCategoriesStartAsync();
+    // };
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       // check if signed in
       if (userAuth) {
@@ -97,12 +104,14 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isLoading: selectIsDirectoryFetching,
+  isLoading: selectIsCategoriesFetching,
+  categoriesLoaded: selectIsCategoriesLoaded,
   currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
+  fetchCategoriesStartAsync: () => dispatch(fetchCategoriesStartAsync())
 });
 
 export default connect(

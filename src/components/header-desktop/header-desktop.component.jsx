@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { withRouter, useRouteMatch } from 'react-router-dom';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { selectDirectorySections } from '../../redux/directory/directory.selectors';
+import { selectCategoriesList } from '../../redux/categories/categories.selectors';
 import { selectIsCollectionFetching, selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
 import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
 import { auth } from '../../firebase/firebase.utils';
@@ -226,6 +226,7 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden,
   isLoading: selectIsCollectionFetching,
+  categories: selectCategoriesList,
   // sections: selectDirectorySections,
   wishlistItemCount: selectWishlistItemsCount
 });

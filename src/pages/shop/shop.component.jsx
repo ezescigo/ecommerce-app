@@ -1,18 +1,37 @@
 import React, { useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Switch, Route, useParams } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import { selectCollection, selectIsCollectionsLoaded } from '../../redux/collections/collections.selectors';
 import { fetchCollectionsStartAsync } from '../../redux/collections/collections.actions';
 
 import CollectionPageContainer from '../../components/collection/collection.container';
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 
-const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
- 
+const ShopPage = ({ match }) => {
+  console.log('rendering shoppage');
+  const dispatch = useDispatch();
+
+  // const {
+  //   categories,
+  //   error: errorCategories,
+  //   loading: loadingCategories,
+  // } = categoryList;
+
+  // const {
+  //   category,
+  //   subcategory,
+  //   // order = 'newest',
+  //   // min = 0,
+  //   // max = 1000000,
+  //   // rating = 0,
+  // } = useParams();
+
   useEffect(() => {
-    fetchCollectionsStartAsync();
-    }, [fetchCollectionsStartAsync]);
-  
+    dispatch(fetchCollectionsStartAsync({ category: '' }));
+  }, []);
+
   return (
     <div className='shop-page'>
       <Switch>
@@ -23,13 +42,13 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
           )}
         />
         <Route 
-          path={`${match.path}/:sectionName`} 
+          exact path={`${match.path}/:category`} 
           render={(props) => (
             <CollectionPageContainer {...props} />
           )}
         />
         <Route 
-          path={`${match.path}/:sectionName/:categoryName`} 
+          path={`${match.path}/:category/:subcategory`} 
           render={(props) => (
             <CollectionPageContainer {...props} />
           )}
@@ -39,13 +58,9 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
-});
-
 export default connect(
   null,
-  mapDispatchToProps
+  null
 )(ShopPage);
 
 

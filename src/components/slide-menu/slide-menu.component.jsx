@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectDirectorySections } from '../../redux/directory/directory.selectors';
+import { selectCategoriesList } from '../../redux/categories/categories.selectors';
 import { CSSTransition } from 'react-transition-group';
 import SlideMenuItem from '../slide-menu-item/slide-menu-item.component';
 
@@ -64,7 +64,7 @@ const SlideMenu = ({ sections }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  sections: selectDirectorySections,
+  sections: selectCategoriesList,
 });
 
 export default connect(mapStateToProps)(SlideMenu);

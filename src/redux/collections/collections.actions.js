@@ -7,9 +7,9 @@ export const fetchCollectionsStart = () => ({
   type: CollectionsActionTypes.FETCH_COLLECTIONS_START,
 });
 
-export const fetchCollectionsSuccess = collectionsMap => ({
+export const fetchCollectionsSuccess = (Category, Collection) => ({
   type: CollectionsActionTypes.FETCH_COLLECTIONS_SUCCESS,
-  payload: collectionsMap
+  payload: { category: Category, collection: Collection }
 });
 
 export const fetchCollectionsFailure = errorMessage => ({
@@ -17,17 +17,26 @@ export const fetchCollectionsFailure = errorMessage => ({
   payload: errorMessage
 });
 
-export const fetchCollectionsStartAsync = () => {
-  return dispatch => {
-    dispatch(fetchCollectionsStart());
+export const fetchCollectionsStartAsync = ({
+  category,
+  subcategory,
+}) => {
+  return (dispatch, getState) => {
+    const isFetching = getState().collections.isFetching;
+    if (!isFetching) {
+      dispatch(fetchCollectionsStart());
 
-    try {
-      axios.get('/api/products').then(response => {
-        const data = response.data;
-        dispatch(fetchCollectionsSuccess(data));
-      });
-    } catch(error) {
-      dispatch(fetchCollectionsFailure(error.message))
+      try {
+        // if (subcategory !== '') {
+        //   category = subcategory;
+        // }
+        axios.get(`/api/category/${category}`).then(response => {
+          const data = response.data;
+          dispatch(fetchCollectionsSuccess(category, data));
+        });
+      } catch (error) {
+        dispatch(fetchCollectionsFailure(error.message))
+      }
     }
   }
 };
