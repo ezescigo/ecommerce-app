@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { DotButton, PrevButton, NextButton } from "./slider-carousel-buttons";
+import { DotButton } from "./slider-carousel-buttons";
 import { useRecursiveTimeout } from "./useRecursiveTimeout";
 import { useEmblaCarousel } from "embla-carousel/react";
 import "./slider-carousel.styles.scss";
@@ -10,7 +10,7 @@ import media4 from '../../assets/wines-bg.jpg';
 
 const AUTOPLAY_INTERVAL = 6000;
 
-const EmblaCarousel = ({ slides, sections }) => {
+const EmblaCarousel = ({ slides }) => {
   const [viewportRef, embla] = useEmblaCarousel({ loop: true });
   // const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   // const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -39,17 +39,17 @@ const EmblaCarousel = ({ slides, sections }) => {
     embla
   ]);
 
-  const scrollNext = useCallback(() => {
-    if (!embla) return;
-    embla.scrollNext();
-    stop();
-  }, [embla, stop]);
+  // const scrollNext = useCallback(() => {
+  //   if (!embla) return;
+  //   embla.scrollNext();
+  //   stop();
+  // }, [embla, stop]);
 
-  const scrollPrev = useCallback(() => {
-    if (!embla) return;
-    embla.scrollPrev();
-    stop();
-  }, [embla, stop]);
+  // const scrollPrev = useCallback(() => {
+  //   if (!embla) return;
+  //   embla.scrollPrev();
+  //   stop();
+  // }, [embla, stop]);
 
   const onSelect = useCallback(() => {
     if (!embla) return;

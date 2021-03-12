@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-
-import CustomButton from '../../components/custom-button/custom-button.component';
 import SignIn from '../../components/sign-in/sign-in.component';
 import SignUp from '../../components/sign-up/sign-up.component';
 

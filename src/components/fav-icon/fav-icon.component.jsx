@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { FavIconContainer } from './fav-icon.styles';
-import { ReactComponent as FavIconOff } from '../../assets/favorite.svg';
-import { ReactComponent as FavIconOn } from '../../assets/favorite-on.svg';
 
 import { RiHeartLine, RiHeartFill } from 'react-icons/ri';
 

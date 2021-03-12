@@ -8,7 +8,7 @@ import { RiShoppingCartLine, RiShoppingCartFill } from 'react-icons/ri';
 
 import './cart-icon.styles.scss';
 
-const CartIcon = ({ onClick, itemCount, mobile, isXsDevice }) => {
+const CartIcon = ({ onClick, itemCount, mobile, isxsdevice }) => {
   
   const handleOnClick = () => {
     if (!mobile) {
@@ -22,7 +22,7 @@ const CartIcon = ({ onClick, itemCount, mobile, isXsDevice }) => {
       ? <RiShoppingCartFill size={30} className='shopping-icon' />
       : <RiShoppingCartLine size={30} className='shopping-icon' />
     }
-    { isXsDevice
+    { isxsdevice
       ? null
       : <span className='cart-item-count'>{itemCount}</span>
     }

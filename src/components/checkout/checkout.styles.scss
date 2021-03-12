@@ -1,5 +1,4 @@
 .checkout-header {
-  z-index: 30;
   position: relative;
   top: 0px;
   width: 100%;
@@ -55,7 +54,6 @@
   width: 100%;
   padding: 0 10px;
   overflow-y: auto;
-  z-index: 30;
   text-align: center;
 
   .empty-cart {
@@ -66,7 +64,6 @@
 }
 
 .checkout-footer {
-  z-index: 30;
   position: relative;
   display: flex;
   flex-direction: column;

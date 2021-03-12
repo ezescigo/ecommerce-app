@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { selectCategoriesList } from '../../redux/categories/categories.selectors';
 import { selectCollection, selectIsCollectionFetching } from '../../redux/collections/collections.selectors';
@@ -43,30 +43,27 @@ const CollectionPage = ({ collection, wishlist, match }) => {
   console.log(subcategory);
 
   useEffect(() => {
-    if (category !== undefined) {
+    if (typeof category !== 'undefined') {
       dispatch(fetchCollectionsStartAsync({
-        category: category
-        // subcategory: subcategory !== 'all' ? subcategory : null,
+        category: category,
+        subcategory: subcategory || '',
         // order,
         // min,
         // max,
         // rating,
       }));
     }
-  }, [category]);
+  }, [category, subcategory]);
 
   return (
     <div className='collection-page'>
       <div className='items'>
-        hola
-        {match.params.category ? match.params.category : null }
-        {match.params.subcategory ? match.params.subcategory : null }
-        {/* {collection[0].categories.map(category => category.items.map(item => {
+        {collection.map(item => {
           return wishlist.find(wishlistItem => wishlistItem.id === item.id)
           ? <CollectionItem key={item.id} item={item} fav />
           : <CollectionItem key={item.id} item={item} />        
           }
-        ))} */}
+        )}
       </div>
     </div>
   )
@@ -74,9 +71,9 @@ const CollectionPage = ({ collection, wishlist, match }) => {
 
 const mapStateToProps = (state, ownProps) => 
 ({
-  collection: selectIsCollectionFetching(state),
-  // collection: selectCollection(
-  //   ownProps.match.params.category)(state),
+  collection: selectCollection(
+    ownProps.match.params.category,
+    ownProps.match.params.subcategory)(state),
   wishlist: selectWishlistItems(state),
 });
 

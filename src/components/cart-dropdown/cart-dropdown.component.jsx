@@ -8,7 +8,7 @@ import { selectCartItems, selectCartHidden } from '../../redux/cart/cart.selecto
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { useOnClickOutside } from '../../hooks';
 
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 
 import CheckOut from '../checkout/checkout.component';
 import { CartDropdownContainer } from './cart-dropdown.styles';
@@ -19,7 +19,12 @@ const CartDropdown = ({ hidden, toggleCartHidden, history }) => {
 
   return (
     <CartDropdownContainer>
-      <CheckOut hidden={hidden} isDropdown={true} closeCheckOut={() => toggleCartHidden()} goToCheckOut={() => history.push('/checkout')} />
+      <CheckOut 
+        hidden={hidden} 
+        isDropdown={true} 
+        closeCheckOut={() => toggleCartHidden()} 
+        goToCheckOut={() => history.push('/checkout')}
+      />
     </CartDropdownContainer>
   )
 };

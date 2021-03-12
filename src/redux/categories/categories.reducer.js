@@ -1,4 +1,5 @@
 import CategoriesActionTypes from './categories.type';
+import { ListToTree } from './categories.utils';
 
 const INITIAL_STATE = {
   categories: null,
@@ -19,7 +20,7 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isFetching: false,
         isLoaded: true,
-        categories: action.payload
+        categories: ListToTree(action.payload)
       };
     case CategoriesActionTypes.FETCH_CATEGORIES_FAILURE:
       return {

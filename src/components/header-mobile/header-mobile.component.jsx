@@ -25,7 +25,7 @@ import {useSpring, useTransition, animated, config} from 'react-spring';
 import { RiScalesLine } from 'react-icons/ri';
 
 
-const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
+const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
 
   const slide = useTransition(!hidden, null, {
     from: { opacity: 0, transform: "translateY(0px)", transform: "scale(0)" },
@@ -46,10 +46,10 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
   return(
     <HeaderContainer>
       { isMobile
-      ? <HeaderSideBar isLoading={isLoading} />
+      ? <HeaderSideBar sections={sections} isLoading={isLoading} />
       : null }
       
-      <LogoContainer to='/' isXsDevice={isXsDevice}>
+      <LogoContainer to='/' isxsdevice={isxsdevice}>
         <LogoText>ZURÜCK</LogoText>
       </LogoContainer>
       <OptionsContainer>
@@ -77,7 +77,7 @@ const HeaderMobile = ({ hidden, isXsDevice, isMobile, currentUser, collections, 
           }       
         </OptionLink>
         <OptionLink to={`${isMobile ? "/checkout" : location.pathname }`}>
-          <CartIcon mobile={isMobile} isXsDevice={isXsDevice} onClick={() => toggleCartHidden()} />
+          <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden()} />
         </OptionLink>
       </OptionsContainer>
     </HeaderContainer>

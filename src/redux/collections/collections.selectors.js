@@ -13,17 +13,20 @@ export const selectCollectionsForPreview = createSelector(
   collections => (collections ? Object.keys(collections).map(key => collections[key]) : [])
 );
 
-export const selectCollection = collectionUrlParam => createSelector(
+export const selectCollection = (category, subcategory) => createSelector(
   [selectCollections],
-  collections => (collections ? collections.filter(collection => collection.routeName === collectionUrlParam) : null)
+  collections => (collections
+    ? (collections[subcategory] || collections[category] || collections['preview'])
+    : null
+  )
 );
 
 export const selectIsCollectionFetching = createSelector(
   [selectShop],
-  collections => collections.isFetching
+  collections => collections.isFetching | collections.collections === {} | !collections.isLoaded
 );
 
 export const selectIsCollectionsLoaded = createSelector(
   [selectCollections],
-  collections => !!collections
+  collections => !!collections & (collections !== {})
 );

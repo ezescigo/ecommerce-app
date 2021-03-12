@@ -11,7 +11,7 @@ import Undo from '../undo-toast/undo-toast.component';
 import { CollectionItemContainer, CollectionFooterContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
 
 const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist, openCartDropdown }) => {
-  const { name, price, imageUrl, imageUrl2 } = item;
+  const { name, price, imageUrl } = item;
   const [isFav, setFav] = useState();
   const [isDisabled, setDisabled] = useState();
   const [isHovered, setIsHovered] = useState(false);
@@ -40,7 +40,7 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist, openCar
       setDisabled(true);
       setFav(currentIsFav => !currentIsFav);
       toggleFav(item);
-      const toastId = toast(
+      toast(
         <Undo message={isFav} item={item} onUndo={() => undo()} />,
         {onClose: () => {
           updateWishlist();

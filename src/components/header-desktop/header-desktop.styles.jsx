@@ -13,7 +13,7 @@ export const HeaderContainer = styled.div`
   margin-bottom: 20px;
   padding: 15px 10px 10px 10px;
   background-color: transparent;
-  z-index: 10;
+  z-index: 30;
 
 
   transition: all 0.3s ease-in-out;
@@ -60,8 +60,8 @@ export const LogoText = styled.span`
   font-size: 40px;
   text-shadow: 0.5px 0.5px 0.5px #cfc0c0;
   transition: all 0.5s ease;
-  font-size: ${({ isXsDevice, isMobile }) => 
-    isMobile ? (isXsDevice ? '18px' : '26px') : '52px'};
+  font-size: ${({ isxsdevice, isMobile }) => 
+    isMobile ? (isxsdevice ? '18px' : '26px') : '52px'};
 
   ${HeaderContainer}:hover & {
     color: #5a5555 ;
@@ -93,6 +93,7 @@ export const OptionsPanel = styled.div`
   justify-content: flex-end;
   align-items: center;
   flex: 1; // To centering Logo.
+  z-index: 30;
 `;
 
 export const OptionsContainer = styled.div`

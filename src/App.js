@@ -14,15 +14,14 @@ import CheckOutPage from './pages/checkout-page/checkout-page.component';
 import Footer from './components/footer/footer.component';
 import { ToastContainer, Slide } from "react-toastify";
 
-import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { fetchCategoriesStartAsync } from './redux/categories/categories.actions';
+import { fetchPreviewStartAsync } from './redux/collections/collections.actions';
 import { selectIsCategoriesFetching, selectIsCategoriesLoaded } from './redux/categories/categories.selectors';
 
 import { SpinnerOverlay, SpinnerContainer } from './components/with-spinner/with-spinner.styles';
-
-import { selectCollectionsForPreview } from './redux/collections/collections.selectors';
 
 class App extends React.Component {
   constructor(props) {
@@ -32,9 +31,10 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, isLoading, fetchCategoriesStartAsync } = this.props;
+    const { setCurrentUser, isLoading, fetchCategoriesStartAsync, fetchPreviewStartAsync } = this.props;
     // if (this.props.categoriesLoaded = false) {
     fetchCategoriesStartAsync();
+    fetchPreviewStartAsync();
     // };
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -111,7 +111,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  fetchCategoriesStartAsync: () => dispatch(fetchCategoriesStartAsync())
+  fetchCategoriesStartAsync: () => dispatch(fetchCategoriesStartAsync()),
+  fetchPreviewStartAsync: () => dispatch(fetchPreviewStartAsync())
 });
 
 export default connect(

@@ -15,8 +15,7 @@ const SlideMenu = ({ sections }) => {
 
   const handleOnClick = (goToMenu) => {
     goToMenu && setActiveMenu(goToMenu)
-  };
-  
+  };  
 
   return (
     <div className='slide-menu'>
@@ -27,18 +26,18 @@ const SlideMenu = ({ sections }) => {
         unmountOnExit>
         <div className='menu'>
         
-          {sections.map(({id, title}) =>
-            <SlideMenuItem key={id} onClick={() => handleOnClick(title)} type='category'>
-              {title}
+          {sections.map(({_id, name}) =>
+            <SlideMenuItem key={_id} onClick={() => handleOnClick(name)} type='category'>
+              {name}
             </SlideMenuItem> 
           )}
         </div>
       </CSSTransition>
 
-      { sections.map(({ id, title, categories }) => (
+      { sections.map(({ _id, name, children }) => (
         <CSSTransition
-          key={id}
-          in={activeMenu === `${title}`}
+          key={_id}
+          in={activeMenu === `${name}`}
           timeout={350}
           classNames="menu-secondary"
           unmountOnExit>
@@ -47,12 +46,12 @@ const SlideMenu = ({ sections }) => {
               <div className='slide-icon-container'>
                 <IoIosArrowBack className='arrow-icon' onClick={() => handleOnClick('main')}/>
               </div>
-              <SlideMenuItem type='category-title'>{title}</SlideMenuItem>
+              <SlideMenuItem type='category-title'>{name}</SlideMenuItem>
             </div>
             
-            {categories.map(category =>  
-              <SlideMenuItem key={category.id} type='item'>
-              { category.title }
+            {children.map(subcategory =>  
+              <SlideMenuItem key={subcategory._id} type='item'>
+              { subcategory.name }
               </SlideMenuItem>)}
 
           </div>

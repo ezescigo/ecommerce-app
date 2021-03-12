@@ -48,7 +48,7 @@ export const LogoText = styled.span`
   font-weight: bold;
   text-shadow: 0.5px 0.5px 0.5px #4c5250, 1px 1px 1px grey; 
   transition: all 0.5s ease;
-  font-size: ${({ isXsDevice }) => isXsDevice ? '18px' : '26px'};
+  font-size: ${({ isxsdevice }) => isxsdevice ? '18px' : '26px'};
 `;
 
 export const OptionsContainer = styled.div`

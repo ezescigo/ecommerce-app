@@ -5,7 +5,7 @@ import { withRouter, useRouteMatch } from 'react-router-dom';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCategoriesList } from '../../redux/categories/categories.selectors';
-import { selectIsCollectionFetching, selectCollectionsForPreview } from '../../redux/collections/collections.selectors';
+import { selectIsCollectionFetching } from '../../redux/collections/collections.selectors';
 import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
 import { auth } from '../../firebase/firebase.utils';
 
@@ -18,7 +18,7 @@ import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
-const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
+const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
 
   const sections = [
       {
@@ -51,9 +51,9 @@ const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, currentUser, 
         linkUrl: "shop/spirits",
         categories: [
           {
-            title: "Whisky",
+            title: "Whiskies",
             id: 21,
-            linkUrl: "shop/spirits/whisky"
+            linkUrl: "shop/spirits/whiskies"
           },
           {
             title: "Aperitives",
@@ -148,7 +148,7 @@ const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, currentUser, 
       onMouseLeave={() => setIsActive('')}>
       <OptionsContainerTop>
         <OptionsPanel />
-        <LogoContainer to='/' isXsDevice={isXsDevice}>
+        <LogoContainer to='/'>
           <LogoText>ZURÜCK</LogoText>
         </LogoContainer>
         <OptionsPanel>
@@ -177,7 +177,7 @@ const HeaderDesktop = ({  isXsDevice, isMobile, hidden, isLoading, currentUser, 
           </OptionLink>
           
           <OptionLink to={`${isMobile ? "/checkout" : location.pathname }`}>
-            <CartIcon mobile={isMobile} isXsDevice={isXsDevice} onClick={() => toggleCartHidden()} />
+            <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden()} />
           </OptionLink>
         </OptionsPanel>
       </OptionsContainerTop>
