@@ -3,7 +3,7 @@ import { ListToTree } from './categories.utils';
 
 const INITIAL_STATE = {
   categories: null,
-  isFetching: false,
+  isFetching: true,
   isLoaded: false,
   errorMessage: undefined
 };

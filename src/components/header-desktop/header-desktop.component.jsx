@@ -9,90 +9,24 @@ import { selectIsCollectionFetching } from '../../redux/collections/collections.
 import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
 import { auth } from '../../firebase/firebase.utils';
 
+import useMeasure from 'react-use-measure';
 import { usePrevious } from '../../hooks';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import SideSearchBox from '../slide-searchbox/slide-searchbox.component';
 import { HeaderContainer, OptionsContainer, OptionsContainerTop, OptionsPanel, OptionLink, LogoContainer, LogoText, NavbarMenuContainer, NavbarMenuItem, NavbarContainer, NavbarItem } from './header-desktop.styles.jsx';
-import {useSpring, useTransition, animated, config} from 'react-spring';
+import { useSpring, useTransition, animated, config } from 'react-spring';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
 
-const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
 
-  const sections = [
-      {
-        title: "Wines",
-        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
-        id: 1,
-        linkUrl: "shop/wines",
-        categories: [
-          {
-            title: "Red",
-            id: 11,
-            linkUrl: "shop/wines/red-wines"
-          },
-          {
-            title: "White",
-            id: 12,
-            linkUrl: "shop/wines/white-wines"
-          },
-          {
-            title: "Sparkling",
-            id: 13,
-            linkUrl: "shop/wines/sparkling-wines"
-          }
-        ],
-      },
-      {
-        title: "Spirits",
-        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
-        id: 2,
-        linkUrl: "shop/spirits",
-        categories: [
-          {
-            title: "Whiskies",
-            id: 21,
-            linkUrl: "shop/spirits/whiskies"
-          },
-          {
-            title: "Aperitives",
-            id: 22,
-            linkUrl: "shop/spirits/aperitives"
-          },
-          {
-            title: "Spirits",
-            id: 23,
-            linkUrl: "shop/spirits/spirits"
-          }
-        ],
-      },
-      {
-        title: "beers",
-        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
-        id: 3,
-        linkUrl: "shop/beers",
-        categories: [
-          { title: "beers", id: 31, linkUrl: "shop/beers/beers" },
-          { title: "accesories", id: 32, linkUrl: "shop/beers/accesories"}
-        ]
-      },
-      {
-        title: "gourmet",
-        imageUrl: "https://drive.google.com/uc?export=view&id=1lkYxMITYjMAOOlw9iBL1M9h7J7zT9i6S",
-        id: 4,
-        linkUrl: "shop/gourmet",
-        categories: [
-          { title: "Dressings", id: 41, linkUrl: "shop/gourmet/dressings" },
-          { title: "Spreads", id: 42, linkUrl: "shop/gourmet/spreads" },
-        ]
-      } 
-    ]
-
+const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
 
   const [isActive, setIsActive] = useState('');
   const prevActive = usePrevious(isActive);
   const [subMenuHidden, setHideSubMenu] = useState(true);
+  const [ref, bounds] = useMeasure();
 
   const { url } = useRouteMatch();
 
@@ -104,13 +38,22 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, currentUser, 
 
   const fadeStylesDropdown = useSpring({
     config: { ...config.stiff },
-    from: { zIndex: -50, opacity: 0, transform: "translateY(-100px)" },
+    // reset: true,
+    // reverse: true,
+    from: { display: 'none', zIndex: -50, opacity: 0, transform: "translateY(-100px)" },
     to: {
+      display: hidden ? 'none' : 'flex',
       opacity: !hidden ? 1 : 0,
-      transform: hidden ? "translateY(-100px)" : "translateY(0px)",
+      transform: hidden ? "translateY(-100px)" : "translateY(-50px)",
       zIndex: hidden ? -50 : 30,
     }
   });
+
+  const transitionsDropdown = useTransition(!hidden, null, {
+    from: { transform: "translateY(-100px)", opacity: 0 },
+    enter: { transform: "translateY(-30px)", opacity: 1, zIndex: 30, },
+    leave: { transform: "translateY(-100px)", opacity: 0 }
+  })
 
   const slideEffect = useTransition(!subMenuHidden, null, {
     from: { opacity: 0 },
@@ -144,13 +87,14 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, currentUser, 
 
   return(
     <HeaderContainer 
+      
       styled={location.pathname === '/' ? false : true}
       onMouseLeave={() => setIsActive('')}>
       <OptionsContainerTop>
-        <OptionsPanel />
         <LogoContainer to='/'>
           <LogoText>ZURÜCK</LogoText>
         </LogoContainer>
+        <SideSearchBox ref={ref} headerWidth={bounds.left} />
         <OptionsPanel>
           { currentUser ? 
             (
@@ -181,20 +125,26 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, currentUser, 
           </OptionLink>
         </OptionsPanel>
       </OptionsContainerTop>
-      <animated.div style={fadeStylesDropdown}>
+      {transitionsDropdown.map(({ item, key, props }) =>
+        item && <animated.div key={key} style={props}><CartDropdown hidden={hidden} /></animated.div>
+      )}
+      
+      
+      {/* <animated.div style={fadeStylesDropdown}>
         <CartDropdown hidden={hidden} />
-      </animated.div>
+      </animated.div> */}
       <OptionsContainer 
         onMouseEnter={() => setIsActive(isActive || prevActive)}
         onMouseLeave={() => setIsActive('')}
       >
         <NavbarContainer>
-          { sections.map(section =>
+          { categories.map(category =>
             <NavbarItem 
-              onMouseEnter={() => {setIsActive(section.title)}}
-              onClick={() => history.push(`/${section.linkUrl}`)}
+              key={category._id}
+              onMouseEnter={() => {setIsActive(category.name)}}
+              onClick={() => history.push(`/shop/${category.slug}`)}
             >
-              {section.title}
+              {category.name}
             </NavbarItem>
           )}
         </NavbarContainer>
@@ -203,15 +153,15 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, currentUser, 
         <OptionsContainer 
           onMouseEnter={() => setIsActive(isActive || prevActive)}
         >
-          {sections.map(section => 
-            section.title === isActive &&
-              section.categories.map(category => 
+          {categories.map(category => 
+            category.name === isActive &&
+              category.children.map(subcategory => 
                 <animated.div style={fadeStylesItem}>
                   <NavbarMenuItem
-                  key={category.id}
+                  key={subcategory._id}
                   type='item'
-                  onClick={() => history.push(`/${category.linkUrl}`)}>
-                    { category.title }
+                  onClick={() => history.push(`/shop/${category.slug}/${subcategory.slug}`)}>
+                    { subcategory.name }
                   </NavbarMenuItem>
                 </animated.div>)
             )
@@ -227,7 +177,6 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden,
   isLoading: selectIsCollectionFetching,
   categories: selectCategoriesList,
-  // sections: selectDirectorySections,
   wishlistItemCount: selectWishlistItemsCount
 });
 
